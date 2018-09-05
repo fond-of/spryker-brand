@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\Brand\Persistence" package="src.Orm.Zed.Brand.Persistence">
+
+    <table name="fos_brand" idMethod="native" allowPkInsert="true" identifierQuoting="true">
+        <column name="id_brand" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="name" required="true" type="VARCHAR" size="255"/>
+        <column name="is_active" required="true" defaultValue="true" type="BOOLEAN"/>
+
+        <column name="b2c_url_shop" type="VARCHAR" size="255"/>
+        <column name="logo_url_small" type="VARCHAR" size="2048"/>
+        <column name="logo_url_large" type="VARCHAR" size="2048"/>
+
+        <unique name="fos_brand-name">
+            <unique-column name="name"/>
+        </unique>
+
+        <behavior name="timestampable"/>
+        <id-method-parameter value="fos_brand_pk_seq"/>
+    </table>
+
+</database>
