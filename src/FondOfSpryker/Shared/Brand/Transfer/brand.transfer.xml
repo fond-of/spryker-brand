@@ -7,7 +7,7 @@
         <property name="id" type="int"/>
         <property name="name" type="string"/>
         <property name="logo" type="string"/>
-        <property name="url_b2c_shop" type="string"/>
+        <property name="urlB2cShop" type="string"/>
     </transfer>
 
 </transfers>
