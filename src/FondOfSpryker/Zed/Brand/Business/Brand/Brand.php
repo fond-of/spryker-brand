@@ -36,19 +36,6 @@ class Brand implements BrandInterface
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer
-     */
-    public function get(BrandTransfer $brandTransfer)
-    {
-        $brandEntity = $this->getBrand($brandTransfer);
-        $brandTransfer->fromArray($brandEntity->toArray(), true);
-
-        return $brandTransfer;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
-     *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
     public function add(BrandTransfer $brandTransfer)
@@ -68,6 +55,45 @@ class Brand implements BrandInterface
     }
 
     /**
+     * @param bool $isSuccess
+     *
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
+     */
+    protected function createBrandResponseTransfer($isSuccess = true)
+    {
+        $brandResponseTransfer = new BrandResponseTransfer();
+        $brandResponseTransfer->setIsSuccess($isSuccess);
+
+        return $brandResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return bool
+     */
+    public function delete(BrandTransfer $brandTransfer)
+    {
+        $brandEntity = $this->getBrand($brandTransfer);
+        $brandEntity->delete();
+
+        return true;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandTransfer
+     */
+    public function get(BrandTransfer $brandTransfer)
+    {
+        $brandEntity = $this->getBrand($brandTransfer);
+        $brandTransfer->fromArray($brandEntity->toArray(), true);
+
+        return $brandTransfer;
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
@@ -84,18 +110,6 @@ class Brand implements BrandInterface
         return $brandResponseTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
-     *
-     * @return bool
-     */
-    public function delete(BrandTransfer $brandTransfer)
-    {
-        $brandEntity = $this->getBrand($brandTransfer);
-        $brandEntity->delete();
-
-        return true;
-    }
 
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
@@ -161,19 +175,6 @@ class Brand implements BrandInterface
     }
 
     /**
-     * @param bool $isSuccess
-     *
-     * @return \Generated\Shared\Transfer\BrandResponseTransfer
-     */
-    protected function createBrandResponseTransfer($isSuccess = true)
-    {
-        $brandResponseTransfer = new BrandResponseTransfer();
-        $brandResponseTransfer->setIsSuccess($isSuccess);
-
-        return $brandResponseTransfer;
-    }
-
-    /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
      * @throws \FondOfSpryker\Zed\Brand\Business\Exception\BrandNotFoundException
@@ -196,10 +197,6 @@ class Brand implements BrandInterface
             return $brandEntity;
         }
 
-        throw new BrandNotFoundException(sprintf(
-            'Brand not found by either ID `%s` or name `%s`.',
-            $brandTransfer->getIdBrand(),
-            $brandTransfer->getName()
-        ));
+        throw new BrandNotFoundException(sprintf('Brand not found by either ID `%s` or name `%s`.', $brandTransfer->getIdBrand(), $brandTransfer->getName()));
     }
 }

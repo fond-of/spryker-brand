@@ -6,7 +6,6 @@ use FondOfSpryker\Zed\Brand\Persistence\Mapper\BrandMapper;
 use FondOfSpryker\Zed\Brand\Persistence\Mapper\BrandMapperInterface;
 use Orm\Zed\Brand\Persistence\FosBrandQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
-use FondOfSpryker\Zed\Brand\BrandDependencyProvider;
 
 /**
  * @method \FondOfSpryker\Zed\Brand\BrandConfig getConfig()

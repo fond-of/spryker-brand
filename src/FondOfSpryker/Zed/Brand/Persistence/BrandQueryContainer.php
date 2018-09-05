@@ -26,7 +26,7 @@ class BrandQueryContainer extends AbstractQueryContainer implements BrandQueryCo
      *
      * @api
      *
-     * @param string $sku
+     * @param int $id
      *
      * @return \Orm\Zed\Brand\Persistence\FosBrandQuery
      */

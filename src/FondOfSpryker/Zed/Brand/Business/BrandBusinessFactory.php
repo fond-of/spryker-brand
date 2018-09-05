@@ -5,8 +5,7 @@ namespace FondOfSpryker\Zed\Brand\Business;
 use FondOfSpryker\Zed\Brand\Business\Brand\Brand;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReader;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReaderInterface;
-use FondOfSpryker\Zed\Brand\BrandDependencyProvider;
-use FondOfSpryker\Zed\Kernel\Business\AbstractBusinessFactory;
+use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
  * @method \FondOfSpryker\Zed\Brand\BrandConfig getConfig()

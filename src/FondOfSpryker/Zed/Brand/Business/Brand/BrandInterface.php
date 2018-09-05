@@ -43,7 +43,7 @@ interface BrandInterface
     public function findById(BrandTransfer $brandTransfer);
 
     /**
-     * @param string $name
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
      *
      * @return \Generated\Shared\Transfer\BrandTransfer $brandTransfer|null
      */

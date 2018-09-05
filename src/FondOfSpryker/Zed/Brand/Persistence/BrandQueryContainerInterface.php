@@ -16,7 +16,7 @@ interface BrandQueryContainerInterface extends QueryContainerInterface
     /**
      * @api
      *
-     * @param string $id
+     * @param int $id
      *
      * @return \Orm\Zed\Brand\Persistence\FosBrandQuery
      */

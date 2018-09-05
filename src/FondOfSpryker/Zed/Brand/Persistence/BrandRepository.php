@@ -4,9 +4,7 @@ namespace FondOfSpryker\Zed\Brand\Persistence;
 
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
-use Generated\Shared\Transfer\BrandTransfer;
 use Orm\Zed\Brand\Persistence\FosBrandQuery;
-use Orm\Zed\Brand\Persistence\Map\FosBrandTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractRepository;
 use Spryker\Zed\PropelOrm\Business\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Formatter\ArrayFormatter;

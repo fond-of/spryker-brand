@@ -2,7 +2,7 @@
 
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
-use Generated\Shared\Transfer\BrandTransfer;
+use Generated\Shared\Transfer\BrandCollectionTransfer;
 
 interface BrandRepositoryInterface
 {
