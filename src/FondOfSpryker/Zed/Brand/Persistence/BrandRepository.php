@@ -15,7 +15,7 @@ use Generated\Shared\Transfer\FilterTransfer;
 /**
  * @method \FondOfSpryker\Zed\Brand\Persistence\BrandPersistenceFactory getFactory()
  */
-class BrandRepository extends AbstractRepository implements BrandRepositoryInterface
+class BrandRepository extends AbstractRepository implements \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface
 {
     /**
      * @param \Generated\Shared\Transfer\BrandCollectionTransfer $brandCollectionTransfer
