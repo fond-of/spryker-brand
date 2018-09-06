@@ -21,7 +21,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
-    public function getBrand(BrandTransfer $brandTransfer)
+    public function getBrand(BrandTransfer $brandTransfer): ?BrandTransfer
     {
         return $this->getFactory()
             ->createBrand()
@@ -37,7 +37,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function addBrand(BrandTransfer $brandTransfer)
+    public function addBrand(BrandTransfer $brandTransfer): BrandTransfer
     {
         return $this->getFactory()
             ->createBrand()
@@ -53,7 +53,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function updateBrand(BrandTransfer $brandTransfer)
+    public function updateBrand(BrandTransfer $brandTransfer): BrandTransfer
     {
         return $this->getFactory()
             ->createBrand()
@@ -69,7 +69,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return bool
      */
-    public function deleteBrand(BrandTransfer $brandTransfer)
+    public function deleteBrand(BrandTransfer $brandTransfer): bool
     {
         return $this->getFactory()
             ->createBrand()
@@ -85,7 +85,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
-    public function findBrandById(BrandTransfer $brandTransfer)
+    public function findBrandById(BrandTransfer $brandTransfer): ?BrandTransfer
     {
         return $this->getFactory()
             ->createBrand()
@@ -101,7 +101,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
-    public function findBrandByName(BrandTransfer $brandTransfer)
+    public function findBrandByName(BrandTransfer $brandTransfer): ?BrandTransfer
     {
         return $this->getFactory()
             ->createBrand()

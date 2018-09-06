@@ -59,7 +59,7 @@ class Brand implements BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    protected function createBrandResponseTransfer($isSuccess = true)
+    protected function createBrandResponseTransfer($isSuccess = true): BrandResponseTransfer
     {
         $brandResponseTransfer = new BrandResponseTransfer();
         $brandResponseTransfer->setIsSuccess($isSuccess);
@@ -72,7 +72,7 @@ class Brand implements BrandInterface
      *
      * @return bool
      */
-    public function delete(BrandTransfer $brandTransfer)
+    public function delete(BrandTransfer $brandTransfer): bool
     {
         $brandEntity = $this->getBrand($brandTransfer);
         $brandEntity->delete();
@@ -85,7 +85,7 @@ class Brand implements BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer
      */
-    public function get(BrandTransfer $brandTransfer)
+    public function get(BrandTransfer $brandTransfer): BrandTransfer
     {
         $brandEntity = $this->getBrand($brandTransfer);
         $brandTransfer->fromArray($brandEntity->toArray(), true);
@@ -98,7 +98,7 @@ class Brand implements BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function update(BrandTransfer $brandTransfer)
+    public function update(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
         $brandEntity = $this->getBrand($brandTransfer);
         $brandEntity->fromArray($brandTransfer->modifiedToArray());
@@ -115,7 +115,7 @@ class Brand implements BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer|null $brandTransfer|null
      */
-    public function findById(BrandTransfer $brandTransfer)
+    public function findById(BrandTransfer $brandTransfer): ?BrandTransfer
     {
         $brandTransfer->requireIdBrand();
         $brandEntity = $this->queryContainer->queryBrandById($brandTransfer->getIdBrand())->findOne();
@@ -133,7 +133,7 @@ class Brand implements BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
-    public function findByName(BrandTransfer $brandTransfer)
+    public function findByName(BrandTransfer $brandTransfer): ?BrandTransfer
     {
         $brandEntity = $this->queryContainer
             ->queryBrandByName($brandTransfer->getName())
@@ -182,7 +182,7 @@ class Brand implements BrandInterface
      *
      * @return \Orm\Zed\Brand\Persistence\FosBrand
      */
-    protected function getBrand(BrandTransfer $brandTransfer)
+    protected function getBrand(BrandTransfer $brandTransfer): FosBrand
     {
         $brandEntity = null;
 
