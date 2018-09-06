@@ -41,7 +41,8 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     {
         return new BrandReader(
             $this->getEntityManager(),
-            $this->getRepository()
+            $this->getRepository(),
+            $this->createBrandExpander()
         );
     }
 

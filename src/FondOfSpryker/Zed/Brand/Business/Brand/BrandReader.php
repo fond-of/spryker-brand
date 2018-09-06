@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\Brand\Business\Brand;
 
+use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
@@ -19,15 +20,23 @@ class BrandReader implements BrandReaderInterface
     protected $brandRepository;
 
     /**
+     * @var \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface
+     */
+    protected $brandExpander;
+
+    /**
      * @param \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface $brandEntityManager
      * @param \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface $brandRepository
+     * @param \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface $brandExpander
      */
     public function __construct(
         BrandEntityManagerInterface $brandEntityManager,
-        BrandRepositoryInterface $brandRepository
+        BrandRepositoryInterface $brandRepository,
+        BrandExpanderInterface $brandExpander
     ) {
         $this->brandEntityManager = $brandEntityManager;
         $this->brandRepository = $brandRepository;
+        $this->brandExpander = $brandExpander;
     }
 
     /**
@@ -37,6 +46,14 @@ class BrandReader implements BrandReaderInterface
      */
     public function getBrandCollection(BrandCollectionTransfer $brandCollectionTransfer): BrandCollectionTransfer
     {
-        return $this->brandRepository->getBrandCollection($brandCollectionTransfer);
+        $brandCollectionTransfer = $this->brandRepository->getBrandCollection($brandCollectionTransfer);
+
+        if (!empty($brandCollectionTransfer->getBrands())) {
+            foreach ($brandCollectionTransfer->getBrands() as $brandTransfer) {
+                $this->brandExpander->expand($brandTransfer);
+            }
+        }
+
+        return $brandCollectionTransfer;
     }
 }

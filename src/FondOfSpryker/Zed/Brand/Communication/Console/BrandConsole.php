@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Communication\Console;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandTransfer;
 use Generated\Shared\Transfer\FilterTransfer;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,16 +36,30 @@ class BrandConsole extends Console
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $filter = new FilterTransfer();
+        // single
+        $single = 2;
 
-        $brandCollectionTransfer = new BrandCollectionTransfer();
-        $brandCollectionTransfer->setFilter($filter);
-        $brandTransfer = $this->getFacade()->getBrandCollection($brandCollectionTransfer);
+        if ($single === 1) {
+            $brandTransfer = new BrandTransfer();
+            $brandTransfer->setName('pinqponq');
+            $brandTransfer = $this->getFacade()->getBrand($brandTransfer);
 
-        foreach ($brandTransfer->getBrands() as $brandTransfer) {
-            /** @var \Generated\Shared\Transfer\BrandTransfer $brandTransfer */
-            $this->output->write(\implode(', ', $brandTransfer->toArray()));
-            $this->output->writeln('');
+            $this->output->writeln($brandTransfer->getName() . ' ' . $brandTransfer->getB2cUrlShop());
+            $this->output->writeln('Assigned CustomerIds: ' . \implode(', ', $brandTransfer->getBrandCustomerRelation()->getCustomerIds()));
+            $this->output->writeln('--------');
+        } else {
+            // collection
+            $filter = new FilterTransfer();
+
+            $brandCollectionTransfer = new BrandCollectionTransfer();
+            $brandCollectionTransfer->setFilter($filter);
+            $brandTransfer = $this->getFacade()->getBrandCollection($brandCollectionTransfer);
+
+            foreach ($brandTransfer->getBrands() as $brandTransfer) {
+                $this->output->writeln($brandTransfer->getName() . ' ' . $brandTransfer->getB2cUrlShop());
+                $this->output->writeln('Assigned CustomerIds: ' . \implode(', ', $brandTransfer->getBrandCustomerRelation()->getCustomerIds()));
+                $this->output->writeln('--------');
+            }
         }
 
         return static::CODE_SUCCESS;

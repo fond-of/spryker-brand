@@ -2,7 +2,6 @@
 
 namespace FondOfSpryker\Zed\Brand\Business;
 
-use FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
