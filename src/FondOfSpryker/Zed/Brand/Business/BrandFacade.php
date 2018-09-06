@@ -5,8 +5,7 @@ namespace FondOfSpryker\Zed\Brand\Business;
 use FondOfSpryker\Zed\Product\Business\BrandFacadeInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
-
-use FondOfSpryker\Zed\Kernel\Business\AbstractFacade;
+use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfSpryker\Zed\Brand\Business\BrandBusinessFactory getFactory()

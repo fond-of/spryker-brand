@@ -2,12 +2,12 @@
 
 namespace FondOfSpryker\Zed\Brand\Business\Brand;
 
+use FondOfSpryker\Zed\Brand\BrandConfig;
+use FondOfSpryker\Zed\Brand\Business\Exception\BrandNotFoundException;
+use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface;
 use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Orm\Zed\Brand\Persistence\FosBrand;
-use FondOfSpryker\Zed\Brand\Business\Exception\BrandNotFoundException;
-use FondOfSpryker\Zed\Brand\BrandConfig;
-use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface;
 
 class Brand implements BrandInterface
 {
@@ -110,7 +110,6 @@ class Brand implements BrandInterface
         return $brandResponseTransfer;
     }
 
-
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
      *
@@ -125,7 +124,8 @@ class Brand implements BrandInterface
             return null;
         }
 
-        return $brandTransfer->fromArray($brandEntity->toArray(), true);;
+        return $brandTransfer->fromArray($brandEntity->toArray(), true);
+        ;
     }
 
     /**
@@ -144,7 +144,8 @@ class Brand implements BrandInterface
         }
 
         $brandTransfer = new BrandTransfer();
-        return $brandTransfer->fromArray($brandEntity->toArray(), true);;
+        return $brandTransfer->fromArray($brandEntity->toArray(), true);
+        ;
     }
 
     /**

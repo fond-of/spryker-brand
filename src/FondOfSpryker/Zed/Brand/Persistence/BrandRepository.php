@@ -2,20 +2,19 @@
 
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
-use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
-use Orm\Zed\Brand\Persistence\FosBrandQuery;
-use Spryker\Zed\Kernel\Persistence\AbstractRepository;
-use Spryker\Zed\PropelOrm\Business\Runtime\ActiveQuery\Criteria;
-use Propel\Runtime\Formatter\ArrayFormatter;
-use Spryker\Zed\Propel\PropelFilterCriteria;
-use Generated\Shared\Transfer\PaginationTransfer;
 use Generated\Shared\Transfer\FilterTransfer;
+use Generated\Shared\Transfer\PaginationTransfer;
+use Orm\Zed\Brand\Persistence\FosBrandQuery;
+use Propel\Runtime\Formatter\ArrayFormatter;
+use Spryker\Zed\Kernel\Persistence\AbstractRepository;
+use Spryker\Zed\Propel\PropelFilterCriteria;
+use Spryker\Zed\PropelOrm\Business\Runtime\ActiveQuery\Criteria;
 
 /**
  * @method \FondOfSpryker\Zed\Brand\Persistence\BrandPersistenceFactory getFactory()
  */
-class BrandRepository extends AbstractRepository implements \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface
+class BrandRepository extends AbstractRepository implements BrandRepositoryInterface
 {
     /**
      * @param \Generated\Shared\Transfer\BrandCollectionTransfer $brandCollectionTransfer

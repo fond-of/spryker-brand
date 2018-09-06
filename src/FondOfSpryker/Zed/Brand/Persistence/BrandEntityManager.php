@@ -2,7 +2,6 @@
 
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
-use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use Spryker\Zed\Kernel\Persistence\AbstractEntityManager;
 
 /**

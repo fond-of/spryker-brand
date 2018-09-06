@@ -2,9 +2,9 @@
 
 namespace FondOfSpryker\Zed\Brand\Business\Brand;
 
-use Generated\Shared\Transfer\BrandCollectionTransfer;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
+use Generated\Shared\Transfer\BrandCollectionTransfer;
 
 class BrandReader implements BrandReaderInterface
 {
