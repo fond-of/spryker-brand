@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Business\Brand;
 
 use FondOfSpryker\Zed\Brand\BrandConfig;
+use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Business\Exception\BrandNotFoundException;
 use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface;
 use Generated\Shared\Transfer\BrandResponseTransfer;
@@ -22,15 +23,23 @@ class Brand implements BrandInterface
     protected $brandConfig;
 
     /**
+     * @var \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface
+     */
+    protected $brandExpander;
+
+    /**
      * @param \FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface $queryContainer
      * @param \FondOfSpryker\Zed\Brand\BrandConfig $brandConfig
+     * @param \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface $brandExpander
      */
     public function __construct(
         BrandQueryContainerInterface $queryContainer,
-        BrandConfig $brandConfig
+        BrandConfig $brandConfig,
+        BrandExpanderInterface $brandExpander
     ) {
         $this->queryContainer = $queryContainer;
         $this->brandConfig = $brandConfig;
+        $this->brandExpander = $brandExpander;
     }
 
     /**
@@ -38,7 +47,7 @@ class Brand implements BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function add(BrandTransfer $brandTransfer)
+    public function add(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
         $brandEntity = new FosBrand();
         $brandEntity->fromArray($brandTransfer->toArray());
@@ -89,6 +98,7 @@ class Brand implements BrandInterface
     {
         $brandEntity = $this->getBrand($brandTransfer);
         $brandTransfer->fromArray($brandEntity->toArray(), true);
+        $brandTransfer = $this->brandExpander->expand($brandTransfer);
 
         return $brandTransfer;
     }
@@ -117,15 +127,12 @@ class Brand implements BrandInterface
      */
     public function findById(BrandTransfer $brandTransfer): ?BrandTransfer
     {
-        $brandTransfer->requireIdBrand();
-        $brandEntity = $this->queryContainer->queryBrandById($brandTransfer->getIdBrand())->findOne();
-
-        if ($brandEntity === null) {
+        try {
+            $brandTransfer->requireIdBrand();
+            return $this->get($brandTransfer);
+        } catch (BrandNotFoundException $e) {
             return null;
         }
-
-        return $brandTransfer->fromArray($brandEntity->toArray(), true);
-        ;
     }
 
     /**
@@ -135,17 +142,12 @@ class Brand implements BrandInterface
      */
     public function findByName(BrandTransfer $brandTransfer): ?BrandTransfer
     {
-        $brandEntity = $this->queryContainer
-            ->queryBrandByName($brandTransfer->getName())
-            ->findOne();
-
-        if ($brandEntity === null) {
+        try {
+            $brandTransfer->requireName();
+            return $this->get($brandTransfer);
+        } catch (BrandNotFoundException $e) {
             return null;
         }
-
-        $brandTransfer = new BrandTransfer();
-        return $brandTransfer->fromArray($brandEntity->toArray(), true);
-        ;
     }
 
     /**
@@ -155,24 +157,12 @@ class Brand implements BrandInterface
      */
     public function hasBrand(BrandTransfer $brandTransfer): bool
     {
-        $result = false;
-        $brandEntity = null;
-
-        if ($brandTransfer->getIdBrand()) {
-            $brandEntity = $this->queryContainer
-                ->queryBrandById($brandTransfer->getIdBrand())
-                ->findOne();
-        } elseif ($brandTransfer->getName()) {
-            $brandEntity = $this->queryContainer
-                ->queryBrandByName($brandTransfer->getName())
-                ->findOne();
+        try {
+            $this->getBrand($brandTransfer);
+            return true;
+        } catch (BrandNotFoundException $e) {
+            return false;
         }
-
-        if ($brandEntity !== null) {
-            $result = true;
-        }
-
-        return $result;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
+use ArrayObject;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
 use Generated\Shared\Transfer\FilterTransfer;
 use Generated\Shared\Transfer\PaginationTransfer;

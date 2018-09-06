@@ -2,9 +2,12 @@
 
 namespace FondOfSpryker\Zed\Brand\Business;
 
+use FondOfSpryker\Zed\Brand\BrandDependencyProvider;
 use FondOfSpryker\Zed\Brand\Business\Brand\Brand;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReader;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReaderInterface;
+use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpander;
+use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -24,7 +27,8 @@ class BrandBusinessFactory extends AbstractBusinessFactory
 
         $brand = new Brand(
             $this->getQueryContainer(),
-            $config
+            $config,
+            $this->createBrandExpander()
         );
 
         return $brand;
@@ -39,5 +43,23 @@ class BrandBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->getRepository()
         );
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface
+     */
+    public function createBrandExpander(): BrandExpanderInterface
+    {
+        return new BrandExpander(
+            $this->getBrandTransferExpanderPlugins()
+        );
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface[]
+     */
+    protected function getBrandTransferExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER);
     }
 }

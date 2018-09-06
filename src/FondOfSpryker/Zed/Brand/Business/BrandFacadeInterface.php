@@ -1,6 +1,6 @@
 <?php
 
-namespace FondOfSpryker\Zed\Product\Business;
+namespace FondOfSpryker\Zed\Brand\Business;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
@@ -65,7 +65,7 @@ interface BrandFacadeInterface
      *
      * @return bool
      */
-    public function findBrandById(BrandTransfer $brandTransfer);
+    public function findBrandById(BrandTransfer $brandTransfer): ?BrandTransfer;
 
     /**
      * Specification:
@@ -75,9 +75,9 @@ interface BrandFacadeInterface
      *
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
-     * @return bool
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
-    public function findBrandByName(BrandTransfer $brandTransfer);
+    public function findBrandByName(BrandTransfer $brandTransfer): ?BrandTransfer;
 
     /**
      * Specification:

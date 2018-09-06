@@ -2,7 +2,7 @@
 
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
-use FondOfSpryker\Zed\Kernel\Persistence\QueryContainer\QueryContainerInterface;
+use Spryker\Zed\Kernel\Persistence\QueryContainer\QueryContainerInterface;
 
 interface BrandQueryContainerInterface extends QueryContainerInterface
 {
