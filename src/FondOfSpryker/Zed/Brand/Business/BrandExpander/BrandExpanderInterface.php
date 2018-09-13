@@ -11,5 +11,5 @@ interface BrandExpanderInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer
      */
-    public function expand(BrandTransfer $brandTransfer);
+    public function expand(BrandTransfer $brandTransfer): BrandTransfer;
 }

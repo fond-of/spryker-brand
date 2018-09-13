@@ -15,6 +15,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideBusinessLayerDependencies(Container $container): Container
     {
+        $container = parent::provideBusinessLayerDependencies($container);
         $container = $this->addBrandTransferExpanderPlugins($container);
 
         return $container;

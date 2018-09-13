@@ -24,7 +24,7 @@ class BrandExpander implements BrandExpanderInterface
      *
      * @return \Generated\Shared\Transfer\BrandTransfer
      */
-    public function expand(BrandTransfer $brandTransfer)
+    public function expand(BrandTransfer $brandTransfer): BrandTransfer
     {
         foreach ($this->brandTransferExpanderPlugins as $brandTransferExpanderPlugin) {
             $brandTransfer = $brandTransferExpanderPlugin->expandTransfer($brandTransfer);

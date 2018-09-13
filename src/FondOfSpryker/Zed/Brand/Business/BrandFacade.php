@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Business;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -36,7 +37,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function addBrand(BrandTransfer $brandTransfer): BrandTransfer
+    public function addBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
         return $this->getFactory()
             ->createBrand()
@@ -52,7 +53,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function updateBrand(BrandTransfer $brandTransfer): BrandTransfer
+    public function updateBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
         return $this->getFactory()
             ->createBrand()

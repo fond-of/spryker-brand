@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\Brand\Business;
 
 use FondOfSpryker\Zed\Brand\BrandDependencyProvider;
 use FondOfSpryker\Zed\Brand\Business\Brand\Brand;
+use FondOfSpryker\Zed\Brand\Business\Brand\BrandInterface;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReader;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReaderInterface;
 use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpander;
@@ -21,7 +22,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \FondOfSpryker\Zed\Brand\Business\Brand\BrandInterface
      */
-    public function createBrand()
+    public function createBrand(): BrandInterface
     {
         $config = $this->getConfig();
 

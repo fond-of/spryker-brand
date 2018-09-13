@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Business;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 
 interface BrandFacadeInterface
@@ -29,7 +30,7 @@ interface BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function addBrand(BrandTransfer $brandTransfer): BrandTransfer;
+    public function addBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
 
     /**
      * Specification:
@@ -41,7 +42,7 @@ interface BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    public function updateBrand(BrandTransfer $brandTransfer): BrandTransfer;
+    public function updateBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
 
     /**
      * Specification:
@@ -63,7 +64,7 @@ interface BrandFacadeInterface
      *
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
-     * @return bool
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
     public function findBrandById(BrandTransfer $brandTransfer): ?BrandTransfer;
 

@@ -49,8 +49,7 @@ class Brand implements BrandInterface
      */
     public function add(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
-        $brandEntity = new FosBrand();
-        $brandEntity->fromArray($brandTransfer->toArray());
+        $brandEntity = $this->createFosBrandEntity($brandTransfer);
         $brandEntity->save();
 
         $brandTransfer->setIdBrand($brandEntity->getPrimaryKey());
@@ -61,6 +60,19 @@ class Brand implements BrandInterface
             ->setBrandTransfer($brandTransfer);
 
         return $brandResponseTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Orm\Zed\Brand\Persistence\FosBrand
+     */
+    protected function createFosBrandEntity(BrandTransfer $brandTransfer): FosBrand
+    {
+        $brandEntity = new FosBrand();
+        $brandEntity->fromArray($brandTransfer->toArray());
+
+        return $brandEntity;
     }
 
     /**
