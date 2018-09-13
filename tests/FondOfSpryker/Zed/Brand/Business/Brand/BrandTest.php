@@ -62,7 +62,7 @@ class BrandTest extends Unit
             ->getMock();
 
         $this->entityMock = $this->getMockBuilder('\Orm\Zed\Brand\Persistence\FosBrand')
-            ->setMethods(['delete', 'save', 'requireName', 'toArray', ''])
+            ->setMethods(['delete', 'save', 'requireName', 'toArray'])
             ->disableOriginalConstructor()
             ->getMock();
 
