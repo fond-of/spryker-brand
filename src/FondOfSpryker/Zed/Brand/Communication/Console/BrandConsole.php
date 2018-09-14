@@ -43,10 +43,7 @@ class BrandConsole extends Console
             $brandTransfer = new BrandTransfer();
             $brandTransfer->setName('pinqponq');
             $brandTransfer = $this->getFacade()->getBrand($brandTransfer);
-
-            $this->output->writeln($brandTransfer->getName() . ' ' . $brandTransfer->getB2cUrlShop());
-            $this->output->writeln('Assigned CustomerIds: ' . \implode(', ', $brandTransfer->getBrandCustomerRelation()->getCustomerIds()));
-            $this->output->writeln('--------');
+            $this->_printBrand($brandTransfer, $output);
         } else {
             // collection
             $filter = new FilterTransfer();
@@ -56,12 +53,22 @@ class BrandConsole extends Console
             $brandTransfer = $this->getFacade()->getBrandCollection($brandCollectionTransfer);
 
             foreach ($brandTransfer->getBrands() as $brandTransfer) {
-                $this->output->writeln($brandTransfer->getName() . ' ' . $brandTransfer->getB2cUrlShop());
-                $this->output->writeln('Assigned CustomerIds: ' . \implode(', ', $brandTransfer->getBrandCustomerRelation()->getCustomerIds()));
-                $this->output->writeln('--------');
+                $this->_printBrand($brandTransfer, $output);
             }
         }
 
         return static::CODE_SUCCESS;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return void
+     */
+    protected function _printBrand(BrandTransfer $brandTransfer, OutputInterface $output): void
+    {
+        $output->writeln($brandTransfer->getName() . ' ' . $brandTransfer->getB2cUrlShop());
+        $output->writeln('--------');
     }
 }
