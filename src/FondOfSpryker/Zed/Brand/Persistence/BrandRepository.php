@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\Brand\Persistence;
 
 use ArrayObject;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandTransfer;
 use Generated\Shared\Transfer\FilterTransfer;
 use Generated\Shared\Transfer\PaginationTransfer;
 use Orm\Zed\Brand\Persistence\FosBrandQuery;
@@ -33,6 +34,30 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         $this->hydrateBrandListWithBrands($brandCollectionTransfer, $brandQuery->find()->getData());
 
         return $brandCollectionTransfer;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
+     */
+    public function findBrandByName(string $name): ?BrandTransfer
+    {
+        $spyBrand = $this->getFactory()
+            ->createBrandQuery()
+            ->filterByName($name)
+            ->findOne();
+
+        if ($spyBrand === null) {
+            return null;
+        }
+
+        $brand = (new BrandTransfer())->fromArray(
+            $spyBrand->toArray(),
+            true
+        );
+
+        return $brand;
     }
 
     /**

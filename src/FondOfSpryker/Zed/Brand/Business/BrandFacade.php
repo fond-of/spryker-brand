@@ -9,6 +9,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
  * @method \FondOfSpryker\Zed\Brand\Business\BrandBusinessFactory getFactory()
+ * @method \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface getRepository()
  */
 class BrandFacade extends AbstractFacade implements BrandFacadeInterface
 {
@@ -138,5 +139,21 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
         return $this->getFactory()
             ->createBrandReader()
             ->getBrandCollection($BrandCollectionTransfer);
+    }
+
+    /**
+     * Specification:
+     * - Find brand by name
+     *
+     * @api
+     *
+     * @param string $name
+     *
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
+     */
+    public function findByName(string $name): ?BrandTransfer
+    {
+        return $this->getRepository()
+            ->findBrandByName($name);
     }
 }

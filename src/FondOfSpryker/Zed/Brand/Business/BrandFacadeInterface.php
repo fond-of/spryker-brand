@@ -82,6 +82,18 @@ interface BrandFacadeInterface
 
     /**
      * Specification:
+     * - Find brand by name
+     *
+     * @api
+     *
+     * @param string $name
+     *
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
+     */
+    public function findByName(string $name): ?BrandTransfer;
+
+    /**
+     * Specification:
      * - Checks if the brand exists.
      *
      * @api
