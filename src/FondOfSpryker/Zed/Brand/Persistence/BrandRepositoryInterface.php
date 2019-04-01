@@ -20,4 +20,9 @@ interface BrandRepositoryInterface
      * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
     public function findBrandByName(string $name): ?BrandTransfer;
+
+    /**
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    public function getActiveBrands(): BrandCollectionTransfer;
 }

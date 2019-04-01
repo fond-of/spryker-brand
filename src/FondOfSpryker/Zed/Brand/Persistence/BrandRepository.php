@@ -132,4 +132,20 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
 
         $brandListTransfer->setBrands($brandCollection);
     }
+
+    /**
+     * @throws
+     *
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    public function getActiveBrands(): BrandCollectionTransfer
+    {
+        $query = $this->getFactory()
+            ->createBrandQuery()
+            ->filterByIsActive(true);
+
+        $brandEntityCollectionTransfer = $this->buildQueryFromCriteria($query)->find();
+
+        return $this->getFactory()->createBrandMapper()->mapCollectionTransfer($brandEntityCollectionTransfer);
+    }
 }

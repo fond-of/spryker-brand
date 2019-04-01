@@ -115,4 +115,14 @@ interface BrandFacadeInterface
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
     public function getBrandCollection(BrandCollectionTransfer $BrandCollectionTransfer): BrandCollectionTransfer;
+
+    /**
+     * Specification:
+     * - Get active brand collection
+     *
+     * @api
+     *
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    public function getActiveBrands(): BrandCollectionTransfer;
 }

@@ -10,6 +10,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 /**
  * @method \FondOfSpryker\Zed\Brand\Business\BrandBusinessFactory getFactory()
  * @method \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface getRepository()
+ * @method \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface getEntityManager()
  */
 class BrandFacade extends AbstractFacade implements BrandFacadeInterface
 {
@@ -155,5 +156,18 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     {
         return $this->getRepository()
             ->findBrandByName($name);
+    }
+
+    /**
+     * Specification:
+     * - Get active brand collection
+     *
+     * @api
+     *
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    public function getActiveBrands(): BrandCollectionTransfer
+    {
+        return $this->getFactory()->createBrandReader()->getActiveBrands();
     }
 }

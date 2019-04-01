@@ -1,4 +1,5 @@
-namespace: FondOfSpryker
+namespace: fond-of-spryker/brand
+
 suites:
   unit:
     path: .

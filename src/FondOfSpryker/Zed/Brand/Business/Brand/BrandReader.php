@@ -56,4 +56,12 @@ class BrandReader implements BrandReaderInterface
 
         return $brandCollectionTransfer;
     }
+
+    /**
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    public function getActiveBrands(): BrandCollectionTransfer
+    {
+        return $this->brandRepository->getActiveBrands();
+    }
 }

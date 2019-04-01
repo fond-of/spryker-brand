@@ -10,7 +10,7 @@
 
         <property name="logoUrlSmall" type="string"/>
         <property name="logoUrlLarge" type="string"/>
-        <property name="b2cUrlShop" type="string"/>
+        <property name="url" type="string"/>
     </transfer>
 
     <transfer name="BrandResponse">

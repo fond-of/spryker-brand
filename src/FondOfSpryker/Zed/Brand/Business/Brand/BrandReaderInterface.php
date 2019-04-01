@@ -12,4 +12,9 @@ interface BrandReaderInterface
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
     public function getBrandCollection(BrandCollectionTransfer $brandCollectionTransfer): BrandCollectionTransfer;
+
+    /**
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    public function getActiveBrands(): BrandCollectionTransfer;
 }

@@ -6,7 +6,7 @@
         <column name="name" required="true" type="VARCHAR" size="255"/>
         <column name="is_active" required="true" defaultValue="true" type="BOOLEAN"/>
 
-        <column name="b2c_url_shop" type="VARCHAR" size="255"/>
+        <column name="url" type="VARCHAR" size="255"/>
         <column name="logo_url_small" type="VARCHAR" size="2048"/>
         <column name="logo_url_large" type="VARCHAR" size="2048"/>
 
@@ -14,7 +14,6 @@
             <unique-column name="name"/>
         </unique>
 
-        <behavior name="timestampable"/>
         <id-method-parameter value="fos_brand_pk_seq"/>
     </table>
 

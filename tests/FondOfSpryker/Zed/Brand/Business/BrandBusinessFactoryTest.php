@@ -11,6 +11,7 @@ use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManager;
 use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainer;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepository;
+use org\bovigo\vfs\vfsStream;
 use Spryker\Zed\Kernel\Container;
 
 class BrandBusinessFactoryTest extends Unit
@@ -41,18 +42,38 @@ class BrandBusinessFactoryTest extends Unit
     protected $queryContainerMock;
 
     /**
+     * @var \org\bovigo\vfs\vfsStreamDirectory
+     */
+    protected $vfsStreamDirectory;
+
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
         parent::_before();
 
+        $this->vfsStreamDirectory = vfsStream::setup('root', null, [
+            'config' => [
+                'Shared' => [
+                    'stores.php' => file_get_contents(codecept_data_dir('stores.php')),
+                    'config_default.php' => file_get_contents(codecept_data_dir('config_default.php')),
+                ],
+            ],
+        ]);
+
         $this->containerMock = $this->getMockBuilder(Container::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->containerMock->expects($this->atLeastOnce())
-            ->method('offsetGet')
+            ->method('has')
+            ->with(BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER)
+            ->willReturn(true);
+
+        $this->containerMock->expects($this->atLeastOnce())
+            ->method('get')
             ->with(BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER)
             ->willReturn([]);
 

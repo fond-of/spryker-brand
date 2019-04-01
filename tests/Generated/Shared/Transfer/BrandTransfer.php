@@ -14,24 +14,31 @@ use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
  */
 class BrandTransfer extends AbstractTransfer
 {
-    const BRAND_CUSTOMER_RELATION = 'brandCustomerRelation';
+    public const BRAND_CUSTOMER_RELATION = 'brandCustomerRelation';
 
-    const ID_BRAND = 'idBrand';
+    public const BRAND_PRODUCT_ABSTRACT_RELATION = 'brandProductAbstractRelation';
 
-    const IS_ACTIVE = 'isActive';
+    public const ID_BRAND = 'idBrand';
 
-    const NAME = 'name';
+    public const IS_ACTIVE = 'isActive';
 
-    const LOGO_URL_SMALL = 'logoUrlSmall';
+    public const NAME = 'name';
 
-    const LOGO_URL_LARGE = 'logoUrlLarge';
+    public const LOGO_URL_SMALL = 'logoUrlSmall';
 
-    const B2C_URL_SHOP = 'b2cUrlShop';
+    public const LOGO_URL_LARGE = 'logoUrlLarge';
+
+    public const URL = 'url';
 
     /**
      * @var \Generated\Shared\Transfer\BrandCustomerRelationTransfer|null
      */
     protected $brandCustomerRelation;
+
+    /**
+     * @var \Generated\Shared\Transfer\BrandProductAbstractRelationTransfer|null
+     */
+    protected $brandProductAbstractRelation;
 
     /**
      * @var int|null
@@ -61,7 +68,7 @@ class BrandTransfer extends AbstractTransfer
     /**
      * @var string|null
      */
-    protected $b2cUrlShop;
+    protected $url;
 
     /**
      * @var array
@@ -70,6 +77,9 @@ class BrandTransfer extends AbstractTransfer
         'brand_customer_relation' => 'brandCustomerRelation',
         'brandCustomerRelation' => 'brandCustomerRelation',
         'BrandCustomerRelation' => 'brandCustomerRelation',
+        'brand_product_abstract_relation' => 'brandProductAbstractRelation',
+        'brandProductAbstractRelation' => 'brandProductAbstractRelation',
+        'BrandProductAbstractRelation' => 'brandProductAbstractRelation',
         'id_brand' => 'idBrand',
         'idBrand' => 'idBrand',
         'IdBrand' => 'idBrand',
@@ -84,9 +94,8 @@ class BrandTransfer extends AbstractTransfer
         'logo_url_large' => 'logoUrlLarge',
         'logoUrlLarge' => 'logoUrlLarge',
         'LogoUrlLarge' => 'logoUrlLarge',
-        'b2c_url_shop' => 'b2cUrlShop',
-        'b2cUrlShop' => 'b2cUrlShop',
-        'B2cUrlShop' => 'b2cUrlShop',
+        'url' => 'url',
+        'Url' => 'url',
     ];
 
     /**
@@ -98,42 +107,72 @@ class BrandTransfer extends AbstractTransfer
             'name_underscore' => 'brand_customer_relation',
             'is_collection' => false,
             'is_transfer' => true,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
+        ],
+        self::BRAND_PRODUCT_ABSTRACT_RELATION => [
+            'type' => 'Generated\Shared\Transfer\BrandProductAbstractRelationTransfer',
+            'name_underscore' => 'brand_product_abstract_relation',
+            'is_collection' => false,
+            'is_transfer' => true,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
         self::ID_BRAND => [
             'type' => 'int',
             'name_underscore' => 'id_brand',
             'is_collection' => false,
             'is_transfer' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
         self::IS_ACTIVE => [
             'type' => 'bool',
             'name_underscore' => 'is_active',
             'is_collection' => false,
             'is_transfer' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
         self::NAME => [
             'type' => 'string',
             'name_underscore' => 'name',
             'is_collection' => false,
             'is_transfer' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
         self::LOGO_URL_SMALL => [
             'type' => 'string',
             'name_underscore' => 'logo_url_small',
             'is_collection' => false,
             'is_transfer' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
         self::LOGO_URL_LARGE => [
             'type' => 'string',
             'name_underscore' => 'logo_url_large',
             'is_collection' => false,
             'is_transfer' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
-        self::B2C_URL_SHOP => [
+        self::URL => [
             'type' => 'string',
-            'name_underscore' => 'b2c_url_shop',
+            'name_underscore' => 'url',
             'is_collection' => false,
             'is_transfer' => false,
+            'rest_request_parameter' => 'no',
+            'is_associative' => false,
+            'is_nullable' => false,
         ],
     ];
 
@@ -144,7 +183,7 @@ class BrandTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function setBrandCustomerRelation(BrandCustomerRelationTransfer $brandCustomerRelation = null)
+    public function setBrandCustomerRelation(?BrandCustomerRelationTransfer $brandCustomerRelation = null)
     {
         $this->brandCustomerRelation = $brandCustomerRelation;
         $this->modifiedProperties[self::BRAND_CUSTOMER_RELATION] = true;
@@ -170,6 +209,43 @@ class BrandTransfer extends AbstractTransfer
     public function requireBrandCustomerRelation()
     {
         $this->assertPropertyIsSet(self::BRAND_CUSTOMER_RELATION);
+
+        return $this;
+    }
+
+    /**
+     * @module BrandProduct
+     *
+     * @param \Generated\Shared\Transfer\BrandProductAbstractRelationTransfer|null $brandProductAbstractRelation
+     *
+     * @return $this
+     */
+    public function setBrandProductAbstractRelation(?BrandProductAbstractRelationTransfer $brandProductAbstractRelation = null)
+    {
+        $this->brandProductAbstractRelation = $brandProductAbstractRelation;
+        $this->modifiedProperties[self::BRAND_PRODUCT_ABSTRACT_RELATION] = true;
+
+        return $this;
+    }
+
+    /**
+     * @module BrandProduct
+     *
+     * @return \Generated\Shared\Transfer\BrandProductAbstractRelationTransfer|null
+     */
+    public function getBrandProductAbstractRelation()
+    {
+        return $this->brandProductAbstractRelation;
+    }
+
+    /**
+     * @module BrandProduct
+     *
+     * @return $this
+     */
+    public function requireBrandProductAbstractRelation()
+    {
+        $this->assertPropertyIsSet(self::BRAND_PRODUCT_ABSTRACT_RELATION);
 
         return $this;
     }
@@ -362,14 +438,14 @@ class BrandTransfer extends AbstractTransfer
     /**
      * @module Brand
      *
-     * @param string|null $b2cUrlShop
+     * @param string|null $url
      *
      * @return $this
      */
-    public function setB2cUrlShop($b2cUrlShop)
+    public function setUrl($url)
     {
-        $this->b2cUrlShop = $b2cUrlShop;
-        $this->modifiedProperties[self::B2C_URL_SHOP] = true;
+        $this->url = $url;
+        $this->modifiedProperties[self::URL] = true;
 
         return $this;
     }
@@ -379,9 +455,9 @@ class BrandTransfer extends AbstractTransfer
      *
      * @return string|null
      */
-    public function getB2cUrlShop()
+    public function getUrl()
     {
-        return $this->b2cUrlShop;
+        return $this->url;
     }
 
     /**
@@ -389,9 +465,9 @@ class BrandTransfer extends AbstractTransfer
      *
      * @return $this
      */
-    public function requireB2cUrlShop()
+    public function requireUrl()
     {
-        $this->assertPropertyIsSet(self::B2C_URL_SHOP);
+        $this->assertPropertyIsSet(self::URL);
 
         return $this;
     }

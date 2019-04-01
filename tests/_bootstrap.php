@@ -11,6 +11,10 @@ if (!file_exists($pathToAutoloader)) {
 
 require_once $pathToAutoloader;
 
+if (!defined('APPLICATION')) {
+    define('APPLICATION', 'ZED');
+}
+
 if (!defined('APPLICATION_ENV')) {
     define('APPLICATION_ENV', Environment::TESTING);
 }

@@ -11,11 +11,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @method \FondOfSpryker\Zed\Brand\Business\BrandFacadeInterface getFacade()
+ * @method \FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface getQueryContainer()
+ * @method \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface getRepository()
  */
 class BrandConsole extends Console
 {
-    const COMMAND_NAME = 'brand:get';
-    const DESCRIPTION = 'Get and print brands';
+    public const COMMAND_NAME = 'brand:get';
+    public const DESCRIPTION = 'Get and print brands';
 
     /**
      * @return void
@@ -43,7 +45,7 @@ class BrandConsole extends Console
             $brandTransfer = new BrandTransfer();
             $brandTransfer->setName('pinqponq');
             $brandTransfer = $this->getFacade()->getBrand($brandTransfer);
-            $this->_printBrand($brandTransfer, $output);
+            $this->printBrand($brandTransfer, $output);
         } else {
             // collection
             $filter = new FilterTransfer();
@@ -53,7 +55,7 @@ class BrandConsole extends Console
             $brandTransfer = $this->getFacade()->getBrandCollection($brandCollectionTransfer);
 
             foreach ($brandTransfer->getBrands() as $brandTransfer) {
-                $this->_printBrand($brandTransfer, $output);
+                $this->printBrand($brandTransfer, $output);
             }
         }
 
@@ -66,7 +68,7 @@ class BrandConsole extends Console
      *
      * @return void
      */
-    protected function _printBrand(BrandTransfer $brandTransfer, OutputInterface $output): void
+    protected function printBrand(BrandTransfer $brandTransfer, OutputInterface $output): void
     {
         $output->writeln($brandTransfer->getName() . ' ' . $brandTransfer->getB2cUrlShop());
         $output->writeln('--------');
