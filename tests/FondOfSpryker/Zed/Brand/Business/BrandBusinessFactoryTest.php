@@ -46,7 +46,6 @@ class BrandBusinessFactoryTest extends Unit
      */
     protected $vfsStreamDirectory;
 
-
     /**
      * @return void
      */
