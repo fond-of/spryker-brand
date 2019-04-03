@@ -8,7 +8,6 @@ use FondOfSpryker\Zed\Brand\Business\Exception\BrandNotFoundException;
 use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface;
 use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
-use Generated\Shared\Transfer\CompanyUserTransfer;
 use Orm\Zed\Brand\Persistence\FosBrand;
 
 class Brand implements BrandInterface
