@@ -11,7 +11,6 @@ use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManager;
 use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainer;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepository;
-use org\bovigo\vfs\vfsStream;
 use Spryker\Zed\Kernel\Container;
 
 class BrandBusinessFactoryTest extends Unit
@@ -42,9 +41,9 @@ class BrandBusinessFactoryTest extends Unit
     protected $queryContainerMock;
 
     /**
-     * @var \org\bovigo\vfs\vfsStreamDirectory
+     * @var \FondOfSpryker\Zed\Brand\BrandConfig|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $vfsStreamDirectory;
+    protected $brandConfigMock;
 
     /**
      * @return void
@@ -52,15 +51,6 @@ class BrandBusinessFactoryTest extends Unit
     protected function _before(): void
     {
         parent::_before();
-
-        $this->vfsStreamDirectory = vfsStream::setup('root', null, [
-            'config' => [
-                'Shared' => [
-                    'stores.php' => file_get_contents(codecept_data_dir('stores.php')),
-                    'config_default.php' => file_get_contents(codecept_data_dir('config_default.php')),
-                ],
-            ],
-        ]);
 
         $this->containerMock = $this->getMockBuilder(Container::class)
             ->disableOriginalConstructor()
@@ -88,8 +78,12 @@ class BrandBusinessFactoryTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->brandConfigMock = $this->getMockBuilder(BrandConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->brandBusinessFactory = new BrandBusinessFactory();
-        $this->brandBusinessFactory->setConfig(new BrandConfig());
+        $this->brandBusinessFactory->setConfig($this->brandConfigMock);
         $this->brandBusinessFactory->setContainer($this->containerMock);
         $this->brandBusinessFactory->setRepository($this->repositoryMock);
         $this->brandBusinessFactory->setEntityManager($this->entityManagerMock);
