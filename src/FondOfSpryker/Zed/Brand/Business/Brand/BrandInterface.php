@@ -26,6 +26,13 @@ interface BrandInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
+    public function createBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
+     */
     public function update(BrandTransfer $brandTransfer): BrandResponseTransfer;
 
     /**

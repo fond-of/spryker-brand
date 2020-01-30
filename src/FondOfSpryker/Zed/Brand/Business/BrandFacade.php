@@ -55,6 +55,22 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
+    public function createBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
+    {
+        return $this->getFactory()
+            ->createBrand()
+            ->createBrand($brandTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
+     */
     public function updateBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
         return $this->getFactory()
@@ -76,6 +92,22 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
         return $this->getFactory()
             ->createBrand()
             ->delete($brandTransfer);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
+     *
+     * @return \Generated\Shared\Transfer\ProductListResponseTransfer
+     */
+    public function removeBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
+    {
+        return $this->getFactory()
+            ->createBrand()
+            ->deleteBrand($brandTransfer);
     }
 
     /**

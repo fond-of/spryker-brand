@@ -28,8 +28,13 @@ class BrandBusinessFactory extends AbstractBusinessFactory
 
         $brand = new Brand(
             $this->getQueryContainer(),
+            $this->getEntityManager(),
             $config,
-            $this->createBrandExpander()
+            $this->createBrandExpander(),
+            $this->getBrandPreCreatePlugins(),
+            $this->getBrandPostDeletePlugins(),
+            $this->getBrandPostSavePlugins(),
+            $this->getBrandDeletePreCheckPlugins()
         );
 
         return $brand;
@@ -63,5 +68,37 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     protected function getBrandTransferExpanderPlugins(): array
     {
         return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface[]
+     */
+    public function getBrandPreCreatePlugins(): array
+    {
+        return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_PRE_CREATE);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[]
+     */
+    public function getBrandPostDeletePlugins(): array
+    {
+        return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_POST_DELETE);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface[]
+     */
+    public function getBrandPostSavePlugins(): array
+    {
+        return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_POST_SAVE);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[]
+     */
+    public function getBrandDeletePreCheckPlugins(): array
+    {
+        return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK);
     }
 }

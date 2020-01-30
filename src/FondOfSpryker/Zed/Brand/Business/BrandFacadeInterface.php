@@ -34,6 +34,18 @@ interface BrandFacadeInterface
 
     /**
      * Specification:
+     * - Stores brand data.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
+     */
+    public function createBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
+
+    /**
+     * Specification:
      * - Update brand data.
      *
      * @api
@@ -45,6 +57,7 @@ interface BrandFacadeInterface
     public function updateBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
 
     /**
+     *
      * Specification:
      * - Delete brand data.
      *
@@ -55,6 +68,21 @@ interface BrandFacadeInterface
      * @return bool
      */
     public function deleteBrand(BrandTransfer $brandTransfer): bool;
+
+    /**
+     * Specification:
+     * - Finds a Brand by BrandTransfer::idBrand.
+     * - Deletes Brand.
+     * - BrandResponseTransfer::isSuccessful is true if brand was deleted.
+     * - BrandResponseTransfer::messages contains error messages if deletion was not performed.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
+     */
+    public function removeBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
 
     /**
      * Specification:
