@@ -99,9 +99,8 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
-     *
-     * @return \Generated\Shared\Transfer\ProductListResponseTransfer
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
     public function removeBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
     {

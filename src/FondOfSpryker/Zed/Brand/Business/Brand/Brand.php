@@ -111,9 +111,9 @@ class Brand implements BrandInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\ProductListTransfer $productListTransfer
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
-     * @return \Generated\Shared\Transfer\ProductListResponseTransfer
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
     public function createBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
     {
