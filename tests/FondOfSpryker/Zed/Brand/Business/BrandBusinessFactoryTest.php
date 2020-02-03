@@ -58,13 +58,23 @@ class BrandBusinessFactoryTest extends Unit
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
-            ->with(BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER)
-            ->willReturn(true);
+            ->withConsecutive(
+                [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER],
+                [BrandDependencyProvider::PLUGINS_BRAND_PRE_CREATE],
+                [BrandDependencyProvider::PLUGINS_BRAND_POST_DELETE],
+                [BrandDependencyProvider::PLUGINS_BRAND_POST_SAVE],
+                [BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK]
+            )->willReturnOnConsecutiveCalls(true, true, true, true, true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
-            ->with(BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER)
-            ->willReturn([]);
+            ->withConsecutive(
+                [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER],
+                [BrandDependencyProvider::PLUGINS_BRAND_PRE_CREATE],
+                [BrandDependencyProvider::PLUGINS_BRAND_POST_DELETE],
+                [BrandDependencyProvider::PLUGINS_BRAND_POST_SAVE],
+                [BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK]
+            )->willReturnOnConsecutiveCalls([], [], [], [], []);
 
         $this->queryContainerMock = $this->getMockBuilder(BrandQueryContainer::class)
             ->disableOriginalConstructor()

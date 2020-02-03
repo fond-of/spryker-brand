@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfSpryker\Zed\Brand\BrandConfig;
 use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Business\Exception\BrandNotFoundException;
+use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainer;
 use Generated\Shared\Transfer\BrandTransfer;
 use ReflectionMethod;
@@ -33,6 +34,11 @@ class BrandTest extends Unit
     protected $queryContainerMock;
 
     /**
+     * @var \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface |\PHPUnit\Framework\MockObject\MockObject
+     */
+    protected $brandEntityManagerMock;
+
+    /**
      * @var \Generated\Shared\Transfer\BrandTransfer|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $brandTransferMock;
@@ -57,6 +63,10 @@ class BrandTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->brandEntityManagerMock = $this->getMockBuilder(BrandEntityManagerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->brandTransferMock = $this->getMockBuilder('\Generated\Shared\Transfer\BrandTransfer')
             ->disableOriginalConstructor()
             ->getMock();
@@ -68,6 +78,7 @@ class BrandTest extends Unit
 
         $this->brand = new Brand(
             $this->queryContainerMock,
+            $this->brandEntityManagerMock,
             $this->brandConfig,
             $this->brandExpanderMock
         );
@@ -132,20 +143,6 @@ class BrandTest extends Unit
     /**
      * @return void
      */
-    public function testDelete(): void
-    {
-        $this->entityMock
-            ->expects($this->once())
-            ->method('delete');
-
-        $this->prepareGetBrandMethod($this->entityMock);
-
-        $this->assertTrue($this->brand->delete($this->brandTransferMock));
-    }
-
-    /**
-     * @return void
-     */
     public function testGet(): void
     {
         $this->entityMock
@@ -161,23 +158,6 @@ class BrandTest extends Unit
             ->willReturn($this->brandTransferMock);
 
         $this->brand->get($this->brandTransferMock);
-    }
-
-    /**
-     * @return void
-     */
-    public function testUpdate(): void
-    {
-        $this->entityMock
-            ->expects($this->once())
-            ->method('save');
-
-        $this->prepareGetBrandMethod($this->entityMock);
-
-        $response = $this->brand->update($this->brandTransferMock);
-
-        $this->assertTrue($response->getIsSuccess());
-        $this->assertSame($this->brandTransferMock, $response->getBrandTransfer());
     }
 
     /**
