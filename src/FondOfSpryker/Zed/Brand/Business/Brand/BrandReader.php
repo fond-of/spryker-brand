@@ -48,13 +48,7 @@ class BrandReader implements BrandReaderInterface
     {
         $brandCollectionTransfer = $this->brandRepository->getBrandCollection($brandCollectionTransfer);
 
-        if (!empty($brandCollectionTransfer->getBrands())) {
-            foreach ($brandCollectionTransfer->getBrands() as $brandTransfer) {
-                $this->brandExpander->expand($brandTransfer);
-            }
-        }
-
-        return $brandCollectionTransfer;
+        return $this->expandBrandCollectionTransfer($brandCollectionTransfer);
     }
 
     /**
@@ -62,6 +56,24 @@ class BrandReader implements BrandReaderInterface
      */
     public function getActiveBrands(): BrandCollectionTransfer
     {
-        return $this->brandRepository->getActiveBrands();
+        $brandCollectionTransfer = $this->brandRepository->getActiveBrands();
+
+        return $this->expandBrandCollectionTransfer($brandCollectionTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandCollectionTransfer $brandCollectionTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    protected function expandBrandCollectionTransfer(BrandCollectionTransfer $brandCollectionTransfer): BrandCollectionTransfer
+    {
+        if (!empty($brandCollectionTransfer->getBrands())) {
+            foreach ($brandCollectionTransfer->getBrands() as $brandTransfer) {
+                $this->brandExpander->expand($brandTransfer);
+            }
+        }
+
+        return $brandCollectionTransfer;
     }
 }
