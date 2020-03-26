@@ -5,6 +5,8 @@ namespace FondOfSpryker\Zed\Brand\Business;
 use Codeception\Test\Unit;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandInterface;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReaderInterface;
+use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 
 class BrandFacadeTest extends Unit
@@ -17,7 +19,7 @@ class BrandFacadeTest extends Unit
     /**
      * @var \FondOfSpryker\Zed\Brand\Business\Brand\BrandInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    protected $brandMock;
+    protected $brandInterfaceMock;
 
     /**
      * @var \Generated\Shared\Transfer\BrandTransfer|\PHPUnit\Framework\MockObject\MockObject
@@ -35,23 +37,41 @@ class BrandFacadeTest extends Unit
     protected $brandBusinessFactoryMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\FondOfSpryker\Zed\Brand\Business\Brand\BrandReaderInterface
+     */
+    protected $brandReaderInterfaceMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    protected $brandCollectionTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
-        parent::_before();
-
-        $this->brandTransferMock = $this->getMockBuilder('\Generated\Shared\Transfer\BrandTransfer')
+        $this->brandTransferMock = $this->getMockBuilder(BrandTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->brandResponseTransferMock = $this->getMockBuilder('\Generated\Shared\Transfer\BrandResponseTransfer')
+        $this->brandResponseTransferMock = $this->getMockBuilder(BrandResponseTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->brandMock = $this->getMockForAbstractClass(BrandInterface::class);
+        $this->brandInterfaceMock = $this->getMockBuilder(BrandInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->brandBusinessFactoryMock = $this->getMockBuilder(BrandBusinessFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandReaderInterfaceMock = $this->getMockBuilder(BrandReaderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandCollectionTransferMock = $this->getMockBuilder(BrandCollectionTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -64,18 +84,19 @@ class BrandFacadeTest extends Unit
      */
     public function testGetBrand(): void
     {
-        $this->brandMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
+            ->method('createBrand')
+            ->willReturn($this->brandInterfaceMock);
+
+        $this->brandInterfaceMock->expects($this->once())
             ->method('get')
             ->with($this->brandTransferMock)
             ->willReturn($this->brandTransferMock);
 
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
-            ->method('createBrand')
-            ->willReturn($this->brandMock);
-
-        $this->brandFacade->getBrand($this->brandTransferMock);
+        $this->assertInstanceOf(
+            BrandTransfer::class,
+            $this->brandFacade->getBrand($this->brandTransferMock)
+        );
     }
 
     /**
@@ -83,18 +104,19 @@ class BrandFacadeTest extends Unit
      */
     public function testAddBrand(): void
     {
-        $this->brandMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
+            ->method('createBrand')
+            ->willReturn($this->brandInterfaceMock);
+
+        $this->brandInterfaceMock->expects($this->once())
             ->method('add')
             ->with($this->brandTransferMock)
             ->willReturn($this->brandResponseTransferMock);
 
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
-            ->method('createBrand')
-            ->willReturn($this->brandMock);
-
-        $this->brandFacade->addBrand($this->brandTransferMock);
+        $this->assertInstanceOf(
+            BrandResponseTransfer::class,
+            $this->brandFacade->addBrand($this->brandTransferMock)
+        );
     }
 
     /**
@@ -102,18 +124,18 @@ class BrandFacadeTest extends Unit
      */
     public function testDeleteBrand(): void
     {
-        $this->brandMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
+            ->method('createBrand')
+            ->willReturn($this->brandInterfaceMock);
+
+        $this->brandInterfaceMock->expects($this->once())
             ->method('delete')
             ->with($this->brandTransferMock)
             ->willReturn(true);
 
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
-            ->method('createBrand')
-            ->willReturn($this->brandMock);
-
-        $this->brandFacade->deleteBrand($this->brandTransferMock);
+        $this->assertTrue(
+            $this->brandFacade->deleteBrand($this->brandTransferMock)
+        );
     }
 
     /**
@@ -121,18 +143,19 @@ class BrandFacadeTest extends Unit
      */
     public function testFindBrandById(): void
     {
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
             ->method('createBrand')
-            ->willReturn($this->brandMock);
+            ->willReturn($this->brandInterfaceMock);
 
-        $this->brandMock
-            ->expects($this->once())
+        $this->brandInterfaceMock->expects($this->once())
             ->method('findById')
             ->with($this->brandTransferMock)
             ->willReturn($this->brandTransferMock);
 
-        $this->assertInstanceOf(BrandTransfer::class, $this->brandFacade->findBrandById($this->brandTransferMock));
+        $this->assertInstanceOf(
+            BrandTransfer::class,
+            $this->brandFacade->findBrandById($this->brandTransferMock)
+        );
     }
 
     /**
@@ -140,13 +163,11 @@ class BrandFacadeTest extends Unit
      */
     public function testFindBrandByIdReturnNull(): void
     {
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
             ->method('createBrand')
-            ->willReturn($this->brandMock);
+            ->willReturn($this->brandInterfaceMock);
 
-        $this->brandMock
-            ->expects($this->atLeastOnce())
+        $this->brandInterfaceMock->expects($this->atLeastOnce())
             ->method('findById')
             ->with($this->brandTransferMock)
             ->willReturn(null);
@@ -159,18 +180,19 @@ class BrandFacadeTest extends Unit
      */
     public function testFindBrandByName(): void
     {
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
             ->method('createBrand')
-            ->willReturn($this->brandMock);
+            ->willReturn($this->brandInterfaceMock);
 
-        $this->brandMock
-            ->expects($this->once())
+        $this->brandInterfaceMock->expects($this->once())
             ->method('findByName')
             ->with($this->brandTransferMock)
             ->willReturn($this->brandTransferMock);
 
-        $this->assertInstanceOf(BrandTransfer::class, $this->brandFacade->findBrandByName($this->brandTransferMock));
+        $this->assertInstanceOf(
+            BrandTransfer::class,
+            $this->brandFacade->findBrandByName($this->brandTransferMock)
+        );
     }
 
     /**
@@ -178,13 +200,11 @@ class BrandFacadeTest extends Unit
      */
     public function testFindBrandByNameReturnNull(): void
     {
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
             ->method('createBrand')
-            ->willReturn($this->brandMock);
+            ->willReturn($this->brandInterfaceMock);
 
-        $this->brandMock
-            ->expects($this->atLeastOnce())
+        $this->brandInterfaceMock->expects($this->atLeastOnce())
             ->method('findByName')
             ->with($this->brandTransferMock)
             ->willReturn(null);
@@ -197,13 +217,11 @@ class BrandFacadeTest extends Unit
      */
     public function testHasBrand(): void
     {
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
             ->method('createBrand')
-            ->willReturn($this->brandMock);
+            ->willReturn($this->brandInterfaceMock);
 
-        $this->brandMock
-            ->expects($this->once())
+        $this->brandInterfaceMock->expects($this->once())
             ->method('hasBrand')
             ->with($this->brandTransferMock)
             ->willReturn(true);
@@ -216,24 +234,77 @@ class BrandFacadeTest extends Unit
      */
     public function testGetBrandCollection(): void
     {
-        $brandReaderMock = $this->getMockForAbstractClass(BrandReaderInterface::class);
-
-        /** @var \Generated\Shared\Transfer\BrandCollectionTransfer $brandCollectionTransfer */
-        $brandCollectionTransfer = $this->getMockBuilder('\Generated\Shared\Transfer\BrandCollectionTransfer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $brandReaderMock
-            ->expects($this->once())
-            ->method('getBrandCollection')
-            ->with($brandCollectionTransfer)
-            ->willReturn($brandCollectionTransfer);
-
-        $this->brandBusinessFactoryMock
-            ->expects($this->once())
+        $this->brandBusinessFactoryMock->expects($this->once())
             ->method('createBrandReader')
-            ->willReturn($brandReaderMock);
+            ->willReturn($this->brandReaderInterfaceMock);
 
-        $this->brandFacade->getBrandCollection($brandCollectionTransfer);
+        $this->brandReaderInterfaceMock->expects($this->once())
+            ->method('getBrandCollection')
+            ->with($this->brandCollectionTransferMock)
+            ->willReturn($this->brandCollectionTransferMock);
+
+        $this->assertInstanceOf(
+            BrandCollectionTransfer::class,
+            $this->brandFacade->getBrandCollection($this->brandCollectionTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetActiveBrands(): void
+    {
+        $this->brandBusinessFactoryMock->expects($this->once())
+            ->method('createBrandReader')
+            ->willReturn($this->brandReaderInterfaceMock);
+
+        $this->brandReaderInterfaceMock->expects($this->once())
+            ->method('getActiveBrands')
+            ->willReturn($this->brandCollectionTransferMock);
+
+        $this->assertInstanceOf(
+            BrandCollectionTransfer::class,
+            $this->brandFacade->getActiveBrands()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testCreateBrand(): void
+    {
+        $this->brandBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createBrand')
+            ->willReturn($this->brandInterfaceMock);
+
+        $this->brandInterfaceMock->expects($this->atLeastOnce())
+            ->method('createBrand')
+            ->with($this->brandTransferMock)
+            ->willReturn($this->brandResponseTransferMock);
+
+        $this->assertInstanceOf(
+            BrandResponseTransfer::class,
+            $this->brandFacade->createBrand($this->brandTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testUpdateBrand(): void
+    {
+        $this->brandBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createBrand')
+            ->willReturn($this->brandInterfaceMock);
+
+        $this->brandInterfaceMock->expects($this->atLeastOnce())
+            ->method('update')
+            ->with($this->brandTransferMock)
+            ->willReturn($this->brandResponseTransferMock);
+
+        $this->assertInstanceOf(
+            BrandResponseTransfer::class,
+            $this->brandFacade->updateBrand($this->brandTransferMock)
+        );
     }
 }
