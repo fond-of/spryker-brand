@@ -15,6 +15,8 @@ interface BrandEntityManagerInterface
 
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return void
      */
     public function deleteBrand(BrandTransfer $brandTransfer): void;
 }
