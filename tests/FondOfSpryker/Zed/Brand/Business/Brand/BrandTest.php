@@ -67,7 +67,7 @@ class BrandTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->brandTransferMock = $this->getMockBuilder('\Generated\Shared\Transfer\BrandTransfer')
+        $this->brandTransferMock = $this->getMockBuilder(BrandTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
