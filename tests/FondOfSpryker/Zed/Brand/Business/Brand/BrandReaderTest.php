@@ -2,10 +2,13 @@
 
 namespace FondOfSpryker\Zed\Brand\Business\Brand;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
+use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandTransfer;
 
 class BrandReaderTest extends Unit
 {
@@ -30,13 +33,48 @@ class BrandReaderTest extends Unit
     protected $brandExpanderMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\BrandTransfer
+     */
+    protected $brandTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\BrandCollectionTransfer
+     */
+    protected $brandCollectionTransferMock;
+
+    /**
+     * @var \ArrayObject|\Generated\Shared\Transfer\BrandTransfer[]
+     */
+    protected $brandTransferMocks;
+
+    /**
      * @return void
      */
     protected function _before(): void
     {
-        $this->brandRepositoryMock = $this->getMockForAbstractClass(BrandRepositoryInterface::class);
-        $this->brandEntityManagerMock = $this->getMockForAbstractClass(BrandEntityManagerInterface::class);
-        $this->brandExpanderMock = $this->getMockForAbstractClass(BrandExpanderInterface::class);
+        $this->brandRepositoryMock = $this->getMockBuilder(BrandRepositoryInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandEntityManagerMock = $this->getMockBuilder(BrandEntityManagerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandExpanderMock = $this->getMockBuilder(BrandExpanderInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandTransferMock = $this->getMockBuilder(BrandTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandTransferMocks = new ArrayObject([
+            $this->brandTransferMock,
+        ]);
+
+        $this->brandCollectionTransferMock = $this->getMockBuilder(BrandCollectionTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->brandReader = new BrandReader(
             $this->brandEntityManagerMock,
@@ -50,31 +88,49 @@ class BrandReaderTest extends Unit
      */
     public function testGetBrandCollection(): void
     {
-        /** @var \Generated\Shared\Transfer\BrandTransfer $brandCollectionTransfer */
-        $brandTransfer = $this->getMockBuilder('\Generated\Shared\Transfer\BrandTransfer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        /** @var \Generated\Shared\Transfer\BrandCollectionTransfer $brandCollectionTransfer */
-        $brandCollectionTransfer = $this->getMockBuilder('\Generated\Shared\Transfer\BrandCollectionTransfer')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $brandCollectionTransfer->expects($this->exactly(2))
-            ->method('getBrands')
-            ->willReturn([$brandTransfer, $brandTransfer, $brandTransfer]);
-
-        $this->brandRepositoryMock
-            ->expects($this->once())
+        $this->brandRepositoryMock->expects($this->atLeastOnce())
             ->method('getBrandCollection')
-            ->with($brandCollectionTransfer)
-            ->willReturn($brandCollectionTransfer);
+            ->with($this->brandCollectionTransferMock)
+            ->willReturn($this->brandCollectionTransferMock);
 
-        $this->brandExpanderMock
-            ->expects($this->exactly(3))
+        $this->brandCollectionTransferMock->expects($this->atLeastOnce())
+            ->method('getBrands')
+            ->willReturn($this->brandTransferMocks);
+
+        $this->brandExpanderMock->expects($this->atLeastOnce())
             ->method('expand')
-            ->with($brandTransfer);
+            ->with($this->brandTransferMock)
+            ->willReturn($this->brandTransferMock);
 
-        $this->brandReader->getBrandCollection($brandCollectionTransfer);
+        $this->assertInstanceOf(
+            BrandCollectionTransfer::class,
+            $this->brandReader->getBrandCollection(
+                $this->brandCollectionTransferMock
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetActiveBrands(): void
+    {
+        $this->brandRepositoryMock->expects($this->atLeastOnce())
+            ->method('getActiveBrands')
+            ->willReturn($this->brandCollectionTransferMock);
+
+        $this->brandCollectionTransferMock->expects($this->atLeastOnce())
+            ->method('getBrands')
+            ->willReturn($this->brandTransferMocks);
+
+        $this->brandExpanderMock->expects($this->atLeastOnce())
+            ->method('expand')
+            ->with($this->brandTransferMock)
+            ->willReturn($this->brandTransferMock);
+
+        $this->assertInstanceOf(
+            BrandCollectionTransfer::class,
+            $this->brandReader->getActiveBrands()
+        );
     }
 }

@@ -56,7 +56,7 @@ class BrandMapper implements BrandMapperInterface
     }
 
     /**
-     * @param \FondOfSpryker\Zed\Brand\Persistence\Mapper\FosBrand $fosBrandEntity
+     * @param \Orm\Zed\Brand\Persistence\FosBrand $fosBrandEntity
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
      * @return \Generated\Shared\Transfer\BrandTransfer
@@ -70,7 +70,7 @@ class BrandMapper implements BrandMapperInterface
 
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
-     * @param \Orm\Zed\Brand\Persistence\FosBrand $fosBrand
+     * @param \Orm\Zed\Brand\Persistence\FosBrand $fosBrandEntity
      *
      * @return \Orm\Zed\Brand\Persistence\FosBrand
      */
