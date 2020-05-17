@@ -15,7 +15,7 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
 class BrandFacade extends AbstractFacade implements BrandFacadeInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -31,7 +31,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -47,7 +47,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -63,7 +63,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -79,7 +79,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -100,6 +100,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
     public function removeBrand(BrandTransfer $brandTransfer): BrandResponseTransfer
@@ -110,7 +111,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -126,7 +127,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -142,13 +143,13 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer|null
+     * @return bool
      */
     public function hasBrand(BrandTransfer $brandTransfer): bool
     {
@@ -158,7 +159,7 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

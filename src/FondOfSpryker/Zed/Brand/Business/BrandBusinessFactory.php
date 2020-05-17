@@ -24,20 +24,16 @@ class BrandBusinessFactory extends AbstractBusinessFactory
      */
     public function createBrand(): BrandInterface
     {
-        $config = $this->getConfig();
-
-        $brand = new Brand(
+        return new Brand(
             $this->getQueryContainer(),
             $this->getEntityManager(),
-            $config,
+            $this->getConfig(),
             $this->createBrandExpander(),
             $this->getBrandPreCreatePlugins(),
             $this->getBrandPostDeletePlugins(),
             $this->getBrandPostSavePlugins(),
             $this->getBrandDeletePreCheckPlugins()
         );
-
-        return $brand;
     }
 
     /**

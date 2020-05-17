@@ -18,8 +18,6 @@ class BrandFactory extends AbstractFactory
     }
 
     /**
-     * @throws
-     *
      * @return \FondOfSpryker\Client\Brand\Dependency\Client\BrandToZedRequestClientInterface
      */
     protected function getZedRequestClient(): BrandToZedRequestClientInterface

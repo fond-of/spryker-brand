@@ -43,6 +43,13 @@ interface BrandInterface
     public function delete(BrandTransfer $brandTransfer): bool;
 
     /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandResponseTransfer
+     */
+    public function deleteBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
+
+    /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
      *
      * @return \Generated\Shared\Transfer\BrandTransfer $brandTransfer|null

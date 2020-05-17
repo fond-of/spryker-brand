@@ -38,10 +38,22 @@ class BrandDependencyProviderTest extends Unit
     {
         $this->containerMock->expects($this->atLeastOnce())
             ->method('offsetSet')
-            ->with(
-                BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER,
-                $this->isInstanceOf(Closure::class)
-            );
+            ->withConsecutive([
+                    BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER,
+                    $this->isInstanceOf(Closure::class),
+            ], [
+                BrandDependencyProvider::PLUGINS_BRAND_PRE_CREATE,
+                $this->isInstanceOf(Closure::class),
+            ], [
+                BrandDependencyProvider::PLUGINS_BRAND_POST_SAVE,
+                $this->isInstanceOf(Closure::class),
+            ], [
+                BrandDependencyProvider::PLUGINS_BRAND_POST_DELETE,
+                $this->isInstanceOf(Closure::class),
+            ], [
+                BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK,
+                $this->isInstanceOf(Closure::class),
+            ]);
 
         $this->brandDependencyProvider->provideBusinessLayerDependencies($this->containerMock);
     }

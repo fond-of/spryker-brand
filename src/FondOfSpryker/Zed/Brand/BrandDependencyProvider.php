@@ -1,4 +1,5 @@
 <?php
+
 namespace FondOfSpryker\Zed\Brand;
 
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
@@ -20,6 +21,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     public function provideBusinessLayerDependencies(Container $container): Container
     {
         $container = parent::provideBusinessLayerDependencies($container);
+
         $container = $this->addBrandTransferExpanderPlugins($container);
         $container = $this->addBrandPreCreatePlugins($container);
         $container = $this->addBrandPostSavePlugins($container);
@@ -36,8 +38,10 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addBrandTransferExpanderPlugins(Container $container): Container
     {
-        $container[static::PLUGINS_BRAND_TRANSFER_EXPANDER] = function (Container $container) {
-            return $this->getBrandTransferExpanderPlugins();
+        $self = $this;
+
+        $container[static::PLUGINS_BRAND_TRANSFER_EXPANDER] = static function () use ($self) {
+            return $self->getBrandTransferExpanderPlugins();
         };
 
         return $container;
@@ -50,9 +54,11 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addBrandPreCreatePlugins(Container $container): Container
     {
-        $container->set(static::PLUGINS_BRAND_PRE_CREATE, function (Container $container) {
-            return $this->getBrandPreCreatePlugins();
-        });
+        $self = $this;
+
+        $container[static::PLUGINS_BRAND_PRE_CREATE] = static function () use ($self) {
+            return $self->getBrandPreCreatePlugins();
+        };
 
         return $container;
     }
@@ -64,25 +70,27 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addBrandPostSavePlugins(Container $container): Container
     {
-        $container->set(static::PLUGINS_BRAND_POST_SAVE, function (Container $container) {
-            return $this->getBrandPostSavePlugins();
-        });
+        $self = $this;
+
+        $container[static::PLUGINS_BRAND_POST_SAVE] = static function () use ($self) {
+            return $self->getBrandPostSavePlugins();
+        };
 
         return $container;
     }
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @throws
      *
      * @return \Spryker\Zed\Kernel\Container
      */
     protected function addBrandDeletePreCheckPlugins(Container $container): Container
     {
-        $container->set(static::PLUGINS_BRAND_DELETE_PRE_CHECK, function (Container $container) {
-            return $this->getBrandDeletePreCheckPlugins();
-        });
+        $self = $this;
+
+        $container[static::PLUGINS_BRAND_DELETE_PRE_CHECK] = static function () use ($self) {
+            return $self->getBrandDeletePreCheckPlugins();
+        };
 
         return $container;
     }
@@ -90,15 +98,15 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
-     * @throws
-     *
      * @return \Spryker\Zed\Kernel\Container
      */
     protected function addBrandPostDeletePlugins(Container $container): Container
     {
-        $container->set(static::PLUGINS_BRAND_POST_DELETE, function (Container $container) {
-            return $this->getBrandPostDeletePlugins();
-        });
+        $self = $this;
+
+        $container[static::PLUGINS_BRAND_POST_DELETE] = static function () use ($self) {
+            return $self->getBrandPostDeletePlugins();
+        };
 
         return $container;
     }

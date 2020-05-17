@@ -134,8 +134,6 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
     }
 
     /**
-     * @throws
-     *
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
     public function getActiveBrands(): BrandCollectionTransfer

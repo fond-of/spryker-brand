@@ -67,7 +67,7 @@ class Brand implements BrandInterface
      * @param \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface $brandExpander
      * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface[] $brandPreCreatePlugins
      * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[] $brandPostDeletePlugins
-     * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[] $brandPostSavers
+     * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface[] $brandPostSavePlugins
      * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[] $brandDeletePreCheckPlugins
      */
     public function __construct(
@@ -77,14 +77,14 @@ class Brand implements BrandInterface
         BrandExpanderInterface $brandExpander,
         array $brandPreCreatePlugins = [],
         array $brandPostDeletePlugins = [],
-        array $brandPostSavers = [],
+        array $brandPostSavePlugins = [],
         array $brandDeletePreCheckPlugins = []
     ) {
         $this->queryContainer = $queryContainer;
         $this->brandEntityManager = $brandEntityManager;
         $this->brandConfig = $brandConfig;
         $this->brandExpander = $brandExpander;
-        $this->brandPostSavers = $brandPostSavers;
+        $this->brandPostSavers = $brandPostSavePlugins;
         $this->brandPostDeletePlugins = $brandPostDeletePlugins;
         $this->brandPreCreatePlugins = $brandPreCreatePlugins;
         $this->brandDeletePreCheckPlugins = $brandDeletePreCheckPlugins;
@@ -104,7 +104,7 @@ class Brand implements BrandInterface
 
         $brandResponseTransfer = new BrandResponseTransfer();
         $brandResponseTransfer
-            ->setIsSuccess(true)
+            ->setIsSuccessful(true)
             ->setBrandTransfer($brandTransfer);
 
         return $brandResponseTransfer;
@@ -143,7 +143,7 @@ class Brand implements BrandInterface
     protected function createBrandResponseTransfer($isSuccess = true): BrandResponseTransfer
     {
         $brandResponseTransfer = new BrandResponseTransfer();
-        $brandResponseTransfer->setIsSuccess($isSuccess);
+        $brandResponseTransfer->setIsSuccessful($isSuccess);
 
         return $brandResponseTransfer;
     }
@@ -218,7 +218,6 @@ class Brand implements BrandInterface
     protected function executeCreateBrandTransaction(
         BrandTransfer $brandTransfer
     ): BrandResponseTransfer {
-
         $brandTransfer->requireName();
 
         $brandResponseTransfer = (new BrandResponseTransfer())->setBrand($brandTransfer);
@@ -234,14 +233,11 @@ class Brand implements BrandInterface
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
-     * @throws
-     *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
     protected function executeUpdateBrandTransaction(
         BrandTransfer $brandTransfer
     ): BrandResponseTransfer {
-
         $brandResponseTransfer = (new BrandResponseTransfer())->setBrandTransfer($brandTransfer);
 
         $brandEntity = $this->getBrand($brandTransfer);
@@ -252,7 +248,7 @@ class Brand implements BrandInterface
 
         return $brandResponseTransfer
             ->setBrandTransfer($brandTransfer)
-            ->setIsSuccess(true);
+            ->setIsSuccessful(true);
     }
 
     /**
@@ -310,10 +306,9 @@ class Brand implements BrandInterface
         BrandTransfer $brandTransfer,
         BrandResponseTransfer $brandResponseTransfer
     ): BrandResponseTransfer {
-
         $this->brandEntityManager->deleteBrand($brandTransfer);
 
-        $brandResponseTransfer = $this->executeBrandPostDeletePlugins($brandTransfer);
+        $brandResponseTransfer = $this->executeBrandPostDeletePlugins($brandTransfer, $brandResponseTransfer);
 
         $brandResponseTransfer->addMessage(
             (new MessageTransfer())->setValue(static::MESSAGE_BRAND_DELETE_SUCCESS)
@@ -324,11 +319,14 @@ class Brand implements BrandInterface
 
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     * @param \Generated\Shared\Transfer\BrandResponseTransfer $brandResponseTransfer
      *
      * @return \Generated\Shared\Transfer\BrandResponseTransfer
      */
-    protected function executeBrandPostDeletePlugins(BrandTransfer $brandTransfer): BrandResponseTransfer
-    {
+    protected function executeBrandPostDeletePlugins(
+        BrandTransfer $brandTransfer,
+        BrandResponseTransfer $brandResponseTransfer
+    ): BrandResponseTransfer {
         foreach ($this->brandPostDeletePlugins as $brandPostDeletePlugin) {
             $brandResponseTransfer = $brandPostDeletePlugin->execute($brandTransfer);
         }
