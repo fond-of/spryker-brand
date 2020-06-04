@@ -10,7 +10,7 @@ use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
 class BrandQueryContainer extends AbstractQueryContainer implements BrandQueryContainerInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -22,7 +22,7 @@ class BrandQueryContainer extends AbstractQueryContainer implements BrandQueryCo
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -37,7 +37,7 @@ class BrandQueryContainer extends AbstractQueryContainer implements BrandQueryCo
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

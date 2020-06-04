@@ -78,7 +78,6 @@ class BrandMapper implements BrandMapperInterface
         BrandTransfer $brandTransfer,
         FosBrand $fosBrandEntity
     ): FosBrand {
-
         $fosBrandEntity->fromArray($brandTransfer->toArray());
 
         return $fosBrandEntity;

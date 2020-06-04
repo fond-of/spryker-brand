@@ -57,7 +57,6 @@ interface BrandFacadeInterface
     public function updateBrand(BrandTransfer $brandTransfer): BrandResponseTransfer;
 
     /**
-     *
      * Specification:
      * - Delete brand data.
      *

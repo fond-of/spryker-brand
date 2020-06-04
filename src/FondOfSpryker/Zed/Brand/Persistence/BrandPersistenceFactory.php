@@ -10,6 +10,8 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 /**
  * @method \FondOfSpryker\Zed\Brand\BrandConfig getConfig()
  * @method \FondOfSpryker\Zed\Brand\Persistence\BrandQueryContainerInterface getQueryContainer()
+ * @method \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface getEntityManager()
+ * @method \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface getRepository()
  */
 class BrandPersistenceFactory extends AbstractPersistenceFactory
 {

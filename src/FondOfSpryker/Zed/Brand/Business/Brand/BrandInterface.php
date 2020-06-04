@@ -52,14 +52,14 @@ interface BrandInterface
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer $brandTransfer|null
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
     public function findById(BrandTransfer $brandTransfer): ?BrandTransfer;
 
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer $brandTransfer|null
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
     public function findByName(BrandTransfer $brandTransfer): ?BrandTransfer;
 

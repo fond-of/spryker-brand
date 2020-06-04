@@ -337,7 +337,7 @@ class Brand implements BrandInterface
     /**
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer $brandTransfer
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer|null $brandTransfer|null
+     * @return \Generated\Shared\Transfer\BrandTransfer|null
      */
     public function findById(BrandTransfer $brandTransfer): ?BrandTransfer
     {
