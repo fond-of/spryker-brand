@@ -85,8 +85,10 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
      *
      * @return \Orm\Zed\Brand\Persistence\FosBrandQuery
      */
-    protected function applyPagination(FosBrandQuery $fosBrandQuery, ?PaginationTransfer $paginationTransfer = null): FosBrandQuery
-    {
+    protected function applyPagination(
+        FosBrandQuery $fosBrandQuery,
+        ?PaginationTransfer $paginationTransfer = null
+    ): FosBrandQuery {
         if (empty($paginationTransfer)) {
             return $fosBrandQuery;
         }
@@ -109,7 +111,10 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         $paginationTransfer->setNextPage($paginationModel->getNextPage());
         $paginationTransfer->setPreviousPage($paginationModel->getPreviousPage());
 
-        return $paginationModel->getQuery();
+        /** @var \Orm\Zed\Brand\Persistence\FosBrandQuery $brandQuery */
+        $brandQuery = $paginationModel->getQuery();
+
+        return $brandQuery;
     }
 
     /**
