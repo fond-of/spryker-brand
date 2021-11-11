@@ -28,8 +28,9 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addBrandPostSavePlugins($container);
         $container = $this->addBrandPostDeletePlugins($container);
         $container = $this->addBrandDeletePreCheckPlugins($container);
+        $container = $this->addSearchBrandQueryExpanderPlugins($container);
 
-        return $this->addSearchBrandQueryExpanderPlugins($container);
+        return $container;
     }
 
     /**
