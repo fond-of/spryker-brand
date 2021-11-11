@@ -2,8 +2,12 @@
 
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
-use FondOfSpryker\Zed\Brand\Persistence\Mapper\BrandMapper;
-use FondOfSpryker\Zed\Brand\Persistence\Mapper\BrandMapperInterface;
+use FondOfSpryker\Zed\Brand\Persistence\Propel\Mapper\BrandMapper;
+use FondOfSpryker\Zed\Brand\Persistence\Propel\Mapper\BrandMapperInterface;
+use FondOfSpryker\Zed\Brand\Persistence\Propel\QueryBuilder\BrandQueryJoinQueryBuilder;
+use FondOfSpryker\Zed\Brand\Persistence\Propel\QueryBuilder\BrandQueryJoinQueryBuilderInterface;
+use FondOfSpryker\Zed\Brand\Persistence\Propel\QueryBuilder\BrandSearchFilterFieldQueryBuilder;
+use FondOfSpryker\Zed\Brand\Persistence\Propel\QueryBuilder\BrandSearchFilterFieldQueryBuilderInterface;
 use Orm\Zed\Brand\Persistence\FosBrandQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -24,10 +28,28 @@ class BrandPersistenceFactory extends AbstractPersistenceFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\Brand\Persistence\Mapper\BrandMapperInterface
+     * @return \FondOfSpryker\Zed\Brand\Persistence\Propel\Mapper\BrandMapperInterface
      */
     public function createBrandMapper(): BrandMapperInterface
     {
         return new BrandMapper();
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\Brand\Persistence\Propel\QueryBuilder\BrandQueryJoinQueryBuilderInterface
+     */
+    public function createBrandQueryJoinQueryBuilder(): BrandQueryJoinQueryBuilderInterface
+    {
+        return new BrandQueryJoinQueryBuilder();
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\Brand\Persistence\Propel\QueryBuilder\BrandSearchFilterFieldQueryBuilderInterface
+     */
+    public function createBrandSearchFilterFieldQueryBuilder(): BrandSearchFilterFieldQueryBuilderInterface
+    {
+        return new BrandSearchFilterFieldQueryBuilder(
+            $this->getConfig()
+        );
     }
 }

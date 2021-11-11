@@ -13,18 +13,12 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
-    "fond-of-spryker/brand-extension": "dev-master",
-    "spryker/zed-request": "^3.0.0"
+    "php": ">=7.3",
+    "fond-of-spryker/brand-extension": "dev-master"
   },
   "require-dev": {
-    "spryker/config": "^3.0",
-    "codeception/codeception": "^2.4",
-    "php-coveralls/php-coveralls": "^2.1",
-    "phpstan/phpstan": "^0.9",
-    "sebastian/phpcpd": "^4.0",
-    "spryker/code-sniffer": "^0.12",
-    "fond-of-codeception/spryker": "^1.0"
+    "fond-of-codeception/spryker": "^1.0",
+    "spryker/code-sniffer": "^0.12"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

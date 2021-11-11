@@ -4,6 +4,7 @@ namespace FondOfSpryker\Client\Brand\Zed;
 
 use FondOfSpryker\Client\Brand\Dependency\Client\BrandToZedRequestClientInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 
 class BrandStub implements BrandStubInterface
 {
@@ -32,5 +33,21 @@ class BrandStub implements BrandStubInterface
         );
 
         return $brandCollectionTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findBrands(BrandListTransfer $brandListTransfer): BrandListTransfer
+    {
+        /** @var \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer */
+        $brandListTransfer = $this->zedRequestClient->call(
+            '/brand/gateway/find-brands',
+            $brandListTransfer
+        );
+
+        return $brandListTransfer;
     }
 }

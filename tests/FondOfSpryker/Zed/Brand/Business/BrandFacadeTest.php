@@ -6,6 +6,7 @@ use Codeception\Test\Unit;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandInterface;
 use FondOfSpryker\Zed\Brand\Business\Brand\BrandReaderInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 
@@ -47,6 +48,11 @@ class BrandFacadeTest extends Unit
     protected $brandCollectionTransferMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\BrandListTransfer
+     */
+    protected $brandListTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -72,6 +78,10 @@ class BrandFacadeTest extends Unit
             ->getMock();
 
         $this->brandCollectionTransferMock = $this->getMockBuilder(BrandCollectionTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandListTransferMock = $this->getMockBuilder(BrandListTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -305,6 +315,26 @@ class BrandFacadeTest extends Unit
         $this->assertInstanceOf(
             BrandResponseTransfer::class,
             $this->brandFacade->updateBrand($this->brandTransferMock)
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testFindBrands(): void
+    {
+        $this->brandBusinessFactoryMock->expects($this->atLeastOnce())
+            ->method('createBrandReader')
+            ->willReturn($this->brandReaderInterfaceMock);
+
+        $this->brandReaderInterfaceMock->expects($this->atLeastOnce())
+            ->method('findByBrandList')
+            ->with($this->brandListTransferMock)
+            ->willReturn($this->brandListTransferMock);
+
+        $this->assertInstanceOf(
+            BrandListTransfer::class,
+            $this->brandFacade->findBrands($this->brandListTransferMock)
         );
     }
 }

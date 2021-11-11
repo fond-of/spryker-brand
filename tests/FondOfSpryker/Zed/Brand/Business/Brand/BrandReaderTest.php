@@ -7,8 +7,12 @@ use Codeception\Test\Unit;
 use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
+use FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
+use Generated\Shared\Transfer\FilterFieldTransfer;
+use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 
 class BrandReaderTest extends Unit
 {
@@ -48,6 +52,21 @@ class BrandReaderTest extends Unit
     protected $brandTransferMocks;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\BrandListTransfer
+     */
+    protected $brandListTransferMock;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\FilterFieldTransfer
+     */
+    protected $filterFieldTransferMock;
+
+    /**
+     * @var \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface[]
+     */
+    protected $searchBrandQueryExpanderPlugins;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -68,6 +87,14 @@ class BrandReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->brandListTransferMock = $this->getMockBuilder(BrandListTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->filterFieldTransferMock = $this->getMockBuilder(FilterFieldTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->brandTransferMocks = new ArrayObject([
             $this->brandTransferMock,
         ]);
@@ -76,10 +103,13 @@ class BrandReaderTest extends Unit
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->searchBrandQueryExpanderPlugins = [];
+
         $this->brandReader = new BrandReader(
             $this->brandEntityManagerMock,
             $this->brandRepositoryMock,
-            $this->brandExpanderMock
+            $this->brandExpanderMock,
+            $this->searchBrandQueryExpanderPlugins
         );
     }
 
@@ -131,6 +161,30 @@ class BrandReaderTest extends Unit
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
             $this->brandReader->getActiveBrands()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testFindByBrandList(): void
+    {
+        $queryJoinCollectionTransfer = new QueryJoinCollectionTransfer();
+        $filterFields = new ArrayObject();
+        $filterFields->append($this->filterFieldTransferMock);
+
+        $this->brandListTransferMock->expects($this->atLeastOnce())
+            ->method('getFilterFields')
+            ->willReturn($filterFields);
+
+        $this->brandListTransferMock->expects($this->atLeastOnce())
+            ->method('setQueryJoins')
+            ->with($queryJoinCollectionTransfer)
+            ->willReturnSelf();
+
+        $this->assertInstanceOf(
+            BrandListTransfer::class,
+            $this->brandReader->findByBrandList($this->brandListTransferMock)
         );
     }
 }

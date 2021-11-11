@@ -5,6 +5,7 @@ namespace FondOfSpryker\Client\Brand;
 use Codeception\Test\Unit;
 use FondOfSpryker\Client\Brand\Zed\BrandStubInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 
 class BrandClientTest extends Unit
 {
@@ -29,6 +30,11 @@ class BrandClientTest extends Unit
     protected $brandCollectionTransferMock;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\Generated\Shared\Transfer\BrandListTransfer
+     */
+    protected $brandListTransferMock;
+
+    /**
      * @return void
      */
     protected function _before(): void
@@ -42,6 +48,10 @@ class BrandClientTest extends Unit
             ->getMock();
 
         $this->brandCollectionTransferMock = $this->getMockBuilder(BrandCollectionTransfer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->brandListTransferMock = $this->getMockBuilder(BrandListTransfer::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -65,6 +75,26 @@ class BrandClientTest extends Unit
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
             $this->brandClient->getActiveBrands()
+        );
+    }
+
+    /**
+     * @return void
+     */
+    public function testFindBrands(): void
+    {
+        $this->brandFactoryMock->expects($this->atLeastOnce())
+            ->method('createZedBrandStub')
+            ->willReturn($this->brandStubInterfaceMock);
+
+        $this->brandStubInterfaceMock->expects($this->atLeastOnce())
+            ->method('findBrands')
+            ->with($this->brandListTransferMock)
+            ->willReturn($this->brandListTransferMock);
+
+        $this->assertInstanceOf(
+            BrandListTransfer::class,
+            $this->brandClient->findBrands($this->brandListTransferMock)
         );
     }
 }
