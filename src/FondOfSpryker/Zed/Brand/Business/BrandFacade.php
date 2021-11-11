@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Business;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
@@ -201,5 +202,20 @@ class BrandFacade extends AbstractFacade implements BrandFacadeInterface
     public function getActiveBrands(): BrandCollectionTransfer
     {
         return $this->getFactory()->createBrandReader()->getActiveBrands();
+    }
+
+    /**
+     * Specification:
+     * - Finds brands by criteria from BrandListTransfer.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findBrands(BrandListTransfer $brandListTransfer): BrandListTransfer
+    {
+        return $this->getFactory()->createBrandReader()->findByBrandList($brandListTransfer);
     }
 }

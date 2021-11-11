@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Communication\Controller;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
 
 /**
@@ -18,5 +19,15 @@ class GatewayController extends AbstractGatewayController
     public function getActiveBrandsAction(): BrandCollectionTransfer
     {
         return $this->getFacade()->getActiveBrands();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findBrandsAction(BrandListTransfer $brandListTransfer): BrandListTransfer
+    {
+        return $this->getFacade()->findBrands($brandListTransfer);
     }
 }

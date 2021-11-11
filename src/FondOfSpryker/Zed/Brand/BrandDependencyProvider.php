@@ -12,6 +12,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     public const PLUGINS_BRAND_POST_DELETE = 'PLUGINS_BRAND_POST_DELETE';
     public const PLUGINS_BRAND_PRE_CREATE = 'PLUGINS_BRAND_PRE_CREATE';
     public const PLUGINS_BRAND_DELETE_PRE_CHECK = 'PLUGINS_BRAND_DELETE_PRE_CHECK';
+    public const PLUGINS_SEARCH_BRAND_QUERY_EXPANDER = 'PLUGINS_SEARCH_BRAND_QUERY_EXPANDER';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -28,7 +29,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
         $container = $this->addBrandPostDeletePlugins($container);
         $container = $this->addBrandDeletePreCheckPlugins($container);
 
-        return $container;
+        return $this->addSearchBrandQueryExpanderPlugins($container);
     }
 
     /**
@@ -147,6 +148,30 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
      * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[]
      */
     protected function getBrandDeletePreCheckPlugins(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    protected function addSearchBrandQueryExpanderPlugins(Container $container): Container
+    {
+        $self = $this;
+
+        $container[static::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER] = static function () use ($self) {
+            return $self->getSearchBrandQueryExpanderPlugins();
+        };
+
+        return $container;
+    }
+
+    /**
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface>
+     */
+    protected function getSearchBrandQueryExpanderPlugins(): array
     {
         return [];
     }

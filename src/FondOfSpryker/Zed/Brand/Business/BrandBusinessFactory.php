@@ -44,7 +44,8 @@ class BrandBusinessFactory extends AbstractBusinessFactory
         return new BrandReader(
             $this->getEntityManager(),
             $this->getRepository(),
-            $this->createBrandExpander()
+            $this->createBrandExpander(),
+            $this->getSearchBrandQueryExpanderPlugins()
         );
     }
 
@@ -96,5 +97,13 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     public function getBrandDeletePreCheckPlugins(): array
     {
         return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK);
+    }
+
+    /**
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface>
+     */
+    protected function getSearchBrandQueryExpanderPlugins(): array
+    {
+        return $this->getProvidedDependency(BrandDependencyProvider::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER);
     }
 }

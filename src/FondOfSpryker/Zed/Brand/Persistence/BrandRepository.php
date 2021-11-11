@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\Brand\Persistence;
 
 use ArrayObject;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Generated\Shared\Transfer\FilterTransfer;
 use Generated\Shared\Transfer\PaginationTransfer;
@@ -150,5 +151,36 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         $brandEntityCollectionTransfer = $this->buildQueryFromCriteria($query)->find();
 
         return $this->getFactory()->createBrandMapper()->mapCollectionTransfer($brandEntityCollectionTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findBrands(BrandListTransfer $brandListTransfer): BrandListTransfer
+    {
+        $query = $this->getFactory()
+            ->createBrandQuery()
+            ->groupByIdBrand()
+            ->setIgnoreCase(true);
+
+        $query = $this->getFactory()
+            ->createBrandSearchFilterFieldQueryBuilder()
+            ->addQueryFilters($query, $brandListTransfer);
+
+        $queryJoinCollectionTransfer = $brandListTransfer->getQueryJoins();
+
+        if ($queryJoinCollectionTransfer !== null && $queryJoinCollectionTransfer->getQueryJoins()->count() > 0) {
+            $query = $this->getFactory()
+                ->createBrandQueryJoinQueryBuilder()
+                ->addQueryFilters($query, $queryJoinCollectionTransfer);
+        }
+
+        $brandTransfers = $this->getFactory()
+            ->createBrandMapper()
+            ->mapEntityCollectionToTransfers($query->find());
+
+        return $brandListTransfer->setBrands(new ArrayObject($brandTransfers));
     }
 }

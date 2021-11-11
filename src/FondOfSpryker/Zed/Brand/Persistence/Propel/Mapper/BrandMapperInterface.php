@@ -1,11 +1,12 @@
 <?php
 
-namespace FondOfSpryker\Zed\Brand\Persistence\Mapper;
+namespace FondOfSpryker\Zed\Brand\Persistence\Propel\Mapper;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 use Generated\Shared\Transfer\FosBrandEntityTransfer;
 use Orm\Zed\Brand\Persistence\FosBrand;
+use Propel\Runtime\Collection\ObjectCollection;
 
 interface BrandMapperInterface
 {
@@ -51,4 +52,25 @@ interface BrandMapperInterface
         BrandTransfer $brandTransfer,
         FosBrand $fosBrand
     ): FosBrand;
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
+     *
+     * @return \Orm\Zed\Brand\Persistence\FosBrand
+     */
+    public function mapTransferToEntity(BrandTransfer $brandTransfer): FosBrand;
+
+    /**
+     * @param \Orm\Zed\Brand\Persistence\FosBrand $entity
+     *
+     * @return \Generated\Shared\Transfer\BrandTransfer
+     */
+    public function mapEntityToTransfer(FosBrand $entity): BrandTransfer;
+
+    /**
+     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\Brand\Persistence\FosBrand[] $entityCollection
+     *
+     * @return \Generated\Shared\Transfer\BrandTransfer[]
+     */
+    public function mapEntityCollectionToTransfers(ObjectCollection $entityCollection): array;
 }

@@ -6,18 +6,20 @@ use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
+use Generated\Shared\Transfer\QueryJoinCollectionTransfer;
 
 class BrandReader implements BrandReaderInterface
 {
     /**
      * @var \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface
      */
-    protected $brandEntityManager;
+    protected $entityManager;
 
     /**
      * @var \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface
      */
-    protected $brandRepository;
+    protected $repository;
 
     /**
      * @var \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface
@@ -25,18 +27,26 @@ class BrandReader implements BrandReaderInterface
     protected $brandExpander;
 
     /**
-     * @param \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface $brandEntityManager
-     * @param \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface $brandRepository
+     * @var array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface>
+     */
+    protected $searchBrandQueryExpanderPlugins;
+
+    /**
+     * @param \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface $entityManager
+     * @param \FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface $repository
      * @param \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface $brandExpander
+     * @param array $searchBrandQueryExpanderPlugins
      */
     public function __construct(
-        BrandEntityManagerInterface $brandEntityManager,
-        BrandRepositoryInterface $brandRepository,
-        BrandExpanderInterface $brandExpander
+        BrandEntityManagerInterface $entityManager,
+        BrandRepositoryInterface $repository,
+        BrandExpanderInterface $brandExpander,
+        array $searchBrandQueryExpanderPlugins = []
     ) {
-        $this->brandEntityManager = $brandEntityManager;
-        $this->brandRepository = $brandRepository;
+        $this->entityManager = $entityManager;
+        $this->repository = $repository;
         $this->brandExpander = $brandExpander;
+        $this->searchBrandQueryExpanderPlugins = $searchBrandQueryExpanderPlugins;
     }
 
     /**
@@ -46,7 +56,7 @@ class BrandReader implements BrandReaderInterface
      */
     public function getBrandCollection(BrandCollectionTransfer $brandCollectionTransfer): BrandCollectionTransfer
     {
-        $brandCollectionTransfer = $this->brandRepository->getBrandCollection($brandCollectionTransfer);
+        $brandCollectionTransfer = $this->repository->getBrandCollection($brandCollectionTransfer);
 
         return $this->expandBrandCollectionTransfer($brandCollectionTransfer);
     }
@@ -56,7 +66,7 @@ class BrandReader implements BrandReaderInterface
      */
     public function getActiveBrands(): BrandCollectionTransfer
     {
-        $brandCollectionTransfer = $this->brandRepository->getActiveBrands();
+        $brandCollectionTransfer = $this->repository->getActiveBrands();
 
         return $this->expandBrandCollectionTransfer($brandCollectionTransfer);
     }
@@ -75,5 +85,39 @@ class BrandReader implements BrandReaderInterface
         }
 
         return $brandCollectionTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findByBrandList(BrandListTransfer $brandListTransfer): BrandListTransfer
+    {
+        $brandListTransfer = $this->executeSearchBrandQueryExpanderPlugins($brandListTransfer);
+
+        return $this->repository->findBrands($brandListTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    protected function executeSearchBrandQueryExpanderPlugins(BrandListTransfer $brandListTransfer): BrandListTransfer
+    {
+        $queryJoinCollectionTransfer = new QueryJoinCollectionTransfer();
+        $filterTransfers = $brandListTransfer->getFilterFields()->getArrayCopy();
+
+        foreach ($this->searchBrandQueryExpanderPlugins as $searchBrandQueryExpanderPlugin) {
+            if ($searchBrandQueryExpanderPlugin->isApplicable($filterTransfers)) {
+                $queryJoinCollectionTransfer = $searchBrandQueryExpanderPlugin->expand(
+                    $filterTransfers,
+                    $queryJoinCollectionTransfer
+                );
+            }
+        }
+
+        return $brandListTransfer->setQueryJoins($queryJoinCollectionTransfer);
     }
 }

@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Business;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandResponseTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 
@@ -152,4 +153,16 @@ interface BrandFacadeInterface
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
     public function getActiveBrands(): BrandCollectionTransfer;
+
+    /**
+     * Specification:
+     * - Finds brands by criteria from BrandListTransfer.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findBrands(BrandListTransfer $brandListTransfer): BrandListTransfer;
 }

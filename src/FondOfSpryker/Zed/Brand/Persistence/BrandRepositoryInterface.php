@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\Brand\Persistence;
 
 use Generated\Shared\Transfer\BrandCollectionTransfer;
+use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
 
 interface BrandRepositoryInterface
@@ -25,4 +26,11 @@ interface BrandRepositoryInterface
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
     public function getActiveBrands(): BrandCollectionTransfer;
+
+    /**
+     * @param \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer
+     *
+     * @return \Generated\Shared\Transfer\BrandListTransfer
+     */
+    public function findBrands(BrandListTransfer $brandListTransfer): BrandListTransfer;
 }
