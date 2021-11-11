@@ -53,6 +53,9 @@ class BrandDependencyProviderTest extends Unit
             ], [
                 BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK,
                 $this->isInstanceOf(Closure::class),
+            ], [
+            BrandDependencyProvider::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER,
+                $this->isInstanceOf(Closure::class),
             ]);
 
         $this->brandDependencyProvider->provideBusinessLayerDependencies($this->containerMock);
