@@ -66,14 +66,14 @@ class BrandSearchFilterFieldQueryBuilder implements BrandSearchFilterFieldQueryB
             $brandQuery->add(
                 $this->config->getFilterFieldTypeMapping()[$filterFieldType],
                 $filterFieldTransfer->getValue(),
-                Criteria::EQUAL
+                Criteria::EQUAL,
             );
         }
 
         if ($filterFieldType === static::FILTER_FIELD_TYPE_ORDER_BY) {
             return $this->addOrderByFilter(
                 $brandQuery,
-                $filterFieldTransfer
+                $filterFieldTransfer,
             );
         }
 

@@ -18,6 +18,9 @@ class Brand implements BrandInterface
 {
     use TransactionTrait;
 
+    /**
+     * @var string
+     */
     protected const MESSAGE_BRAND_DELETE_SUCCESS = 'Brand has been successfully removed.';
 
     /**
@@ -41,22 +44,22 @@ class Brand implements BrandInterface
     protected $brandExpander;
 
     /**
-     * @var \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface[]
+     * @var array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface>
      */
     protected $brandPostSavers;
 
     /**
-     * @var \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[]
+     * @var array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface>
      */
     protected $brandPostDeletePlugins;
 
     /**
-     * @var \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface[]
+     * @var array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface>
      */
     protected $brandPreCreatePlugins;
 
     /**
-     * @var \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[]
+     * @var array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface>
      */
     protected $brandDeletePreCheckPlugins;
 
@@ -65,10 +68,10 @@ class Brand implements BrandInterface
      * @param \FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface $brandEntityManager
      * @param \FondOfSpryker\Zed\Brand\BrandConfig $brandConfig
      * @param \FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface $brandExpander
-     * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface[] $brandPreCreatePlugins
-     * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[] $brandPostDeletePlugins
-     * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface[] $brandPostSavePlugins
-     * @param \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[] $brandDeletePreCheckPlugins
+     * @param array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface> $brandPreCreatePlugins
+     * @param array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface> $brandPostDeletePlugins
+     * @param array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface> $brandPostSavePlugins
+     * @param array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface> $brandDeletePreCheckPlugins
      */
     public function __construct(
         BrandQueryContainerInterface $queryContainer,
@@ -311,7 +314,7 @@ class Brand implements BrandInterface
         $brandResponseTransfer = $this->executeBrandPostDeletePlugins($brandTransfer, $brandResponseTransfer);
 
         $brandResponseTransfer->addMessage(
-            (new MessageTransfer())->setValue(static::MESSAGE_BRAND_DELETE_SUCCESS)
+            (new MessageTransfer())->setValue(static::MESSAGE_BRAND_DELETE_SUCCESS),
         );
 
         return $brandResponseTransfer;
@@ -420,7 +423,7 @@ class Brand implements BrandInterface
     ): BrandResponseTransfer {
         $messageTransfers = array_merge(
             $brandResponseTransfer->getMessages()->getArrayCopy(),
-            $resultBrandResponseTransfer->getMessages()->getArrayCopy()
+            $resultBrandResponseTransfer->getMessages()->getArrayCopy(),
         );
 
         return $brandResponseTransfer
@@ -439,11 +442,11 @@ class Brand implements BrandInterface
     ): BrandResponseTransfer {
         $brandResponseTransfer = $this->mergeBrandResponseMessages(
             $brandResponseTransfer,
-            $resultBrandResponseTransfer
+            $resultBrandResponseTransfer,
         );
 
         return $brandResponseTransfer->setIsSuccessful(
-            $brandResponseTransfer->getIsSuccessful() && $resultBrandResponseTransfer->getIsSuccessful()
+            $brandResponseTransfer->getIsSuccessful() && $resultBrandResponseTransfer->getIsSuccessful(),
         );
     }
 }

@@ -20,14 +20,14 @@ class BrandMapper implements BrandMapperInterface
         $brandTransfer = (new BrandTransfer())
             ->fromArray(
                 $brand,
-                true
+                true,
             );
 
         return $brandTransfer;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\FosBrandEntityTransfer[] $brandEntityTransferCollection
+     * @param array<\Generated\Shared\Transfer\FosBrandEntityTransfer> $brandEntityTransferCollection
      *
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
@@ -94,7 +94,7 @@ class BrandMapper implements BrandMapperInterface
         $fosBrand = new FosBrand();
 
         $fosBrand->fromArray(
-            $brandTransfer->modifiedToArray(false)
+            $brandTransfer->modifiedToArray(false),
         );
 
         return $fosBrand;
@@ -112,9 +112,9 @@ class BrandMapper implements BrandMapperInterface
     }
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\Brand\Persistence\FosBrand[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\Brand\Persistence\FosBrand> $entityCollection
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer[]
+     * @return array<\Generated\Shared\Transfer\BrandTransfer>
      */
     public function mapEntityCollectionToTransfers(ObjectCollection $entityCollection): array
     {

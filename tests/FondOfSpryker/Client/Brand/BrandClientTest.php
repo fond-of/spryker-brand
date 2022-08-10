@@ -74,7 +74,7 @@ class BrandClientTest extends Unit
 
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
-            $this->brandClient->getActiveBrands()
+            $this->brandClient->getActiveBrands(),
         );
     }
 
@@ -94,7 +94,7 @@ class BrandClientTest extends Unit
 
         $this->assertInstanceOf(
             BrandListTransfer::class,
-            $this->brandClient->findBrands($this->brandListTransferMock)
+            $this->brandClient->findBrands($this->brandListTransferMock),
         );
     }
 }

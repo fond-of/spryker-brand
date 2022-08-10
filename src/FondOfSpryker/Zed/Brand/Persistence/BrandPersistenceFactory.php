@@ -49,7 +49,7 @@ class BrandPersistenceFactory extends AbstractPersistenceFactory
     public function createBrandSearchFilterFieldQueryBuilder(): BrandSearchFilterFieldQueryBuilderInterface
     {
         return new BrandSearchFilterFieldQueryBuilder(
-            $this->getConfig()
+            $this->getConfig(),
         );
     }
 }

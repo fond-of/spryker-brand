@@ -29,7 +29,7 @@ class BrandStub implements BrandStubInterface
         /** @var \Generated\Shared\Transfer\BrandCollectionTransfer $brandCollectionTransfer */
         $brandCollectionTransfer = $this->zedRequestClient->call(
             '/brand/gateway/get-active-brands',
-            new BrandCollectionTransfer()
+            new BrandCollectionTransfer(),
         );
 
         return $brandCollectionTransfer;
@@ -45,7 +45,7 @@ class BrandStub implements BrandStubInterface
         /** @var \Generated\Shared\Transfer\BrandListTransfer $brandListTransfer */
         $brandListTransfer = $this->zedRequestClient->call(
             '/brand/gateway/find-brands',
-            $brandListTransfer
+            $brandListTransfer,
         );
 
         return $brandListTransfer;

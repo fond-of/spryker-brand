@@ -37,8 +37,8 @@ class BrandDependencyProviderTest extends Unit
         $this->assertInstanceOf(
             Container::class,
             $this->brandDependencyProvider->provideServiceLayerDependencies(
-                $this->containerMock
-            )
+                $this->containerMock,
+            ),
         );
     }
 }

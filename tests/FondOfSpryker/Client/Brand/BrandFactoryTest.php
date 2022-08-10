@@ -57,7 +57,7 @@ class BrandFactoryTest extends Unit
 
         $this->assertInstanceOf(
             BrandStubInterface::class,
-            $this->brandFactory->createZedBrandStub()
+            $this->brandFactory->createZedBrandStub(),
         );
     }
 }

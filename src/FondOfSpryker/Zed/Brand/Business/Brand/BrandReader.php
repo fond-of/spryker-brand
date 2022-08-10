@@ -78,10 +78,8 @@ class BrandReader implements BrandReaderInterface
      */
     protected function expandBrandCollectionTransfer(BrandCollectionTransfer $brandCollectionTransfer): BrandCollectionTransfer
     {
-        if (!empty($brandCollectionTransfer->getBrands())) {
-            foreach ($brandCollectionTransfer->getBrands() as $brandTransfer) {
-                $this->brandExpander->expand($brandTransfer);
-            }
+        foreach ($brandCollectionTransfer->getBrands() as $brandTransfer) {
+            $this->brandExpander->expand($brandTransfer);
         }
 
         return $brandCollectionTransfer;
@@ -113,7 +111,7 @@ class BrandReader implements BrandReaderInterface
             if ($searchBrandQueryExpanderPlugin->isApplicable($filterTransfers)) {
                 $queryJoinCollectionTransfer = $searchBrandQueryExpanderPlugin->expand(
                     $filterTransfers,
-                    $queryJoinCollectionTransfer
+                    $queryJoinCollectionTransfer,
                 );
             }
         }

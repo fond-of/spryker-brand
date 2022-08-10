@@ -55,7 +55,7 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
 
         $brand = (new BrandTransfer())->fromArray(
             $spyBrand->toArray(),
-            true
+            true,
         );
 
         return $brand;
@@ -90,7 +90,7 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
         FosBrandQuery $fosBrandQuery,
         ?PaginationTransfer $paginationTransfer = null
     ): FosBrandQuery {
-        if (empty($paginationTransfer)) {
+        if (!$paginationTransfer) {
             return $fosBrandQuery;
         }
 
@@ -132,7 +132,7 @@ class BrandRepository extends AbstractRepository implements BrandRepositoryInter
             $brandCollection->append(
                 $this->getFactory()
                     ->createBrandMapper()
-                    ->mapBrandEntityToBrand($brand)
+                    ->mapBrandEntityToBrand($brand),
             );
         }
 

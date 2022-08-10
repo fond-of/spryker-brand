@@ -7,11 +7,34 @@ use Spryker\Zed\Kernel\Container;
 
 class BrandDependencyProvider extends AbstractBundleDependencyProvider
 {
+    /**
+     * @var string
+     */
     public const PLUGINS_BRAND_TRANSFER_EXPANDER = 'PLUGINS_BRAND_TRANSFER_EXPANDER';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_BRAND_POST_SAVE = 'PLUGINS_BRAND_POST_SAVE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_BRAND_POST_DELETE = 'PLUGINS_BRAND_POST_DELETE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_BRAND_PRE_CREATE = 'PLUGINS_BRAND_PRE_CREATE';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_BRAND_DELETE_PRE_CHECK = 'PLUGINS_BRAND_DELETE_PRE_CHECK';
+
+    /**
+     * @var string
+     */
     public const PLUGINS_SEARCH_BRAND_QUERY_EXPANDER = 'PLUGINS_SEARCH_BRAND_QUERY_EXPANDER';
 
     /**
@@ -114,7 +137,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface[]
+     * @return array<\FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface>
      */
     protected function getBrandTransferExpanderPlugins(): array
     {
@@ -122,7 +145,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface>
      */
     protected function getBrandPostSavePlugins(): array
     {
@@ -130,7 +153,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface>
      */
     protected function getBrandPostDeletePlugins(): array
     {
@@ -138,7 +161,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface>
      */
     protected function getBrandPreCreatePlugins(): array
     {
@@ -146,7 +169,7 @@ class BrandDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface>
      */
     protected function getBrandDeletePreCheckPlugins(): array
     {

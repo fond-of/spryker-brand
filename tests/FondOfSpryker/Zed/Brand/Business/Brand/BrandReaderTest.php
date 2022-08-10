@@ -7,7 +7,6 @@ use Codeception\Test\Unit;
 use FondOfSpryker\Zed\Brand\Business\BrandExpander\BrandExpanderInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandEntityManagerInterface;
 use FondOfSpryker\Zed\Brand\Persistence\BrandRepositoryInterface;
-use FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface;
 use Generated\Shared\Transfer\BrandCollectionTransfer;
 use Generated\Shared\Transfer\BrandListTransfer;
 use Generated\Shared\Transfer\BrandTransfer;
@@ -47,7 +46,7 @@ class BrandReaderTest extends Unit
     protected $brandCollectionTransferMock;
 
     /**
-     * @var \ArrayObject|\Generated\Shared\Transfer\BrandTransfer[]
+     * @var \ArrayObject<\Generated\Shared\Transfer\BrandTransfer>
      */
     protected $brandTransferMocks;
 
@@ -62,7 +61,7 @@ class BrandReaderTest extends Unit
     protected $filterFieldTransferMock;
 
     /**
-     * @var \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface[]
+     * @var array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\SearchBrandQueryExpanderPluginInterface>
      */
     protected $searchBrandQueryExpanderPlugins;
 
@@ -109,7 +108,7 @@ class BrandReaderTest extends Unit
             $this->brandEntityManagerMock,
             $this->brandRepositoryMock,
             $this->brandExpanderMock,
-            $this->searchBrandQueryExpanderPlugins
+            $this->searchBrandQueryExpanderPlugins,
         );
     }
 
@@ -135,8 +134,8 @@ class BrandReaderTest extends Unit
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
             $this->brandReader->getBrandCollection(
-                $this->brandCollectionTransferMock
-            )
+                $this->brandCollectionTransferMock,
+            ),
         );
     }
 
@@ -160,7 +159,7 @@ class BrandReaderTest extends Unit
 
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
-            $this->brandReader->getActiveBrands()
+            $this->brandReader->getActiveBrands(),
         );
     }
 
@@ -184,7 +183,7 @@ class BrandReaderTest extends Unit
 
         $this->assertInstanceOf(
             BrandListTransfer::class,
-            $this->brandReader->findByBrandList($this->brandListTransferMock)
+            $this->brandReader->findByBrandList($this->brandListTransferMock),
         );
     }
 }

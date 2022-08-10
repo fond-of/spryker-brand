@@ -92,7 +92,7 @@ class BrandBusinessFactoryTest extends Unit
                 [BrandDependencyProvider::PLUGINS_BRAND_PRE_CREATE],
                 [BrandDependencyProvider::PLUGINS_BRAND_POST_DELETE],
                 [BrandDependencyProvider::PLUGINS_BRAND_POST_SAVE],
-                [BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK]
+                [BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK],
             )->willReturnOnConsecutiveCalls(true, true, true, true, true);
 
         $this->containerMock->expects($this->atLeastOnce())
@@ -102,7 +102,7 @@ class BrandBusinessFactoryTest extends Unit
                 [BrandDependencyProvider::PLUGINS_BRAND_PRE_CREATE],
                 [BrandDependencyProvider::PLUGINS_BRAND_POST_DELETE],
                 [BrandDependencyProvider::PLUGINS_BRAND_POST_SAVE],
-                [BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK]
+                [BrandDependencyProvider::PLUGINS_BRAND_DELETE_PRE_CHECK],
             )->willReturnOnConsecutiveCalls([], [], [], [], []);
 
         $brand = $this->brandBusinessFactory->createBrand();
@@ -118,14 +118,14 @@ class BrandBusinessFactoryTest extends Unit
             ->method('has')
             ->withConsecutive(
                 [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER],
-                [BrandDependencyProvider::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER]
+                [BrandDependencyProvider::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER],
             )->willReturnOnConsecutiveCalls(true, true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
             ->withConsecutive(
                 [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER],
-                [BrandDependencyProvider::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER]
+                [BrandDependencyProvider::PLUGINS_SEARCH_BRAND_QUERY_EXPANDER],
             )->willReturnOnConsecutiveCalls([], []);
 
         $reader = $this->brandBusinessFactory->createBrandReader();
@@ -140,15 +140,14 @@ class BrandBusinessFactoryTest extends Unit
         $this->containerMock->expects($this->atLeastOnce())
             ->method('has')
             ->withConsecutive(
-                [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER]
+                [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER],
             )->willReturnOnConsecutiveCalls(true);
 
         $this->containerMock->expects($this->atLeastOnce())
             ->method('get')
             ->withConsecutive(
-                [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER]
+                [BrandDependencyProvider::PLUGINS_BRAND_TRANSFER_EXPANDER],
             )->willReturnOnConsecutiveCalls([]);
-
 
         $expander = $this->brandBusinessFactory->createBrandExpander();
         $this->assertInstanceOf(BrandExpanderInterface::class, $expander);

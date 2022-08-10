@@ -7,12 +7,12 @@ use Generated\Shared\Transfer\BrandTransfer;
 class BrandExpander implements BrandExpanderInterface
 {
     /**
-     * @var array|\FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface[]
+     * @var array<\FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface>
      */
     protected $brandTransferExpanderPlugins;
 
     /**
-     * @param \FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface[] $brandTransferExpanderPlugins
+     * @param array<\FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface> $brandTransferExpanderPlugins
      */
     public function __construct(array $brandTransferExpanderPlugins)
     {
