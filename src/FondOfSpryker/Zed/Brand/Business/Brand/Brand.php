@@ -152,8 +152,6 @@ class Brand implements BrandInterface
     }
 
     /**
-     * @deprecated
-     *
      * @param \Generated\Shared\Transfer\BrandTransfer $brandTransfer
      *
      * @return bool
