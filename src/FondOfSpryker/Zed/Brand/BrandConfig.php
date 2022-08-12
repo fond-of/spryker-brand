@@ -14,7 +14,7 @@ class BrandConfig extends AbstractBundleConfig
     {
         return $this->get(
             BrandConstants::FILTER_FIELD_TYPE_MAPPING,
-            BrandConstants::FILTER_FIELD_TYPE_MAPPING_DEFAULT
+            BrandConstants::FILTER_FIELD_TYPE_MAPPING_DEFAULT,
         );
     }
 }

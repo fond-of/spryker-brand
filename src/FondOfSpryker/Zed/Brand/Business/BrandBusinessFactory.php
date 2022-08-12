@@ -32,7 +32,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
             $this->getBrandPreCreatePlugins(),
             $this->getBrandPostDeletePlugins(),
             $this->getBrandPostSavePlugins(),
-            $this->getBrandDeletePreCheckPlugins()
+            $this->getBrandDeletePreCheckPlugins(),
         );
     }
 
@@ -45,7 +45,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
             $this->getEntityManager(),
             $this->getRepository(),
             $this->createBrandExpander(),
-            $this->getSearchBrandQueryExpanderPlugins()
+            $this->getSearchBrandQueryExpanderPlugins(),
         );
     }
 
@@ -55,12 +55,12 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     public function createBrandExpander(): BrandExpanderInterface
     {
         return new BrandExpander(
-            $this->getBrandTransferExpanderPlugins()
+            $this->getBrandTransferExpanderPlugins(),
         );
     }
 
     /**
-     * @return \FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface[]
+     * @return array<\FondOfSpryker\Zed\Brand\Dependency\Plugin\BrandTransferExpanderPluginInterface>
      */
     protected function getBrandTransferExpanderPlugins(): array
     {
@@ -68,7 +68,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPreCreatePluginInterface>
      */
     public function getBrandPreCreatePlugins(): array
     {
@@ -76,7 +76,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostDeletePluginInterface>
      */
     public function getBrandPostDeletePlugins(): array
     {
@@ -84,7 +84,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandPostSavePluginInterface>
      */
     public function getBrandPostSavePlugins(): array
     {
@@ -92,7 +92,7 @@ class BrandBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface[]
+     * @return array<\FondOfSpryker\Zed\BrandExtension\Dependency\Plugin\BrandDeletePreCheckPluginInterface>
      */
     public function getBrandDeletePreCheckPlugins(): array
     {

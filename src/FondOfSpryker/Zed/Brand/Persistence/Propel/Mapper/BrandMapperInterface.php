@@ -18,7 +18,7 @@ interface BrandMapperInterface
     public function mapBrandEntityToBrand(array $brand): BrandTransfer;
 
     /**
-     * @param \Generated\Shared\Transfer\FosBrandEntityTransfer[] $brandEntityTransferCollection
+     * @param array<\Generated\Shared\Transfer\FosBrandEntityTransfer> $brandEntityTransferCollection
      *
      * @return \Generated\Shared\Transfer\BrandCollectionTransfer
      */
@@ -68,9 +68,9 @@ interface BrandMapperInterface
     public function mapEntityToTransfer(FosBrand $entity): BrandTransfer;
 
     /**
-     * @param \Propel\Runtime\Collection\ObjectCollection|\Orm\Zed\Brand\Persistence\FosBrand[] $entityCollection
+     * @param \Propel\Runtime\Collection\ObjectCollection<\Orm\Zed\Brand\Persistence\FosBrand> $entityCollection
      *
-     * @return \Generated\Shared\Transfer\BrandTransfer[]
+     * @return array<\Generated\Shared\Transfer\BrandTransfer>
      */
     public function mapEntityCollectionToTransfers(ObjectCollection $entityCollection): array;
 }

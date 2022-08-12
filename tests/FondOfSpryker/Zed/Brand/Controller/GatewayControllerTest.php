@@ -25,7 +25,6 @@ class GatewayControllerTest extends Unit
      */
     protected $gatewayController;
 
-
     /**
      * @return void
      */
@@ -76,7 +75,7 @@ class GatewayControllerTest extends Unit
 
         static::assertInstanceOf(
             BrandCollectionTransfer::class,
-            $this->gatewayController->getActiveBrandsAction()
+            $this->gatewayController->getActiveBrandsAction(),
         );
     }
 
@@ -92,7 +91,7 @@ class GatewayControllerTest extends Unit
 
         static::assertInstanceOf(
             BrandListTransfer::class,
-            $this->gatewayController->findBrandsAction($this->brandListTransferMock)
+            $this->gatewayController->findBrandsAction($this->brandListTransferMock),
         );
     }
 }

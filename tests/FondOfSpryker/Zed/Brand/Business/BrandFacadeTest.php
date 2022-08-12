@@ -105,7 +105,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandTransfer::class,
-            $this->brandFacade->getBrand($this->brandTransferMock)
+            $this->brandFacade->getBrand($this->brandTransferMock),
         );
     }
 
@@ -125,7 +125,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandResponseTransfer::class,
-            $this->brandFacade->addBrand($this->brandTransferMock)
+            $this->brandFacade->addBrand($this->brandTransferMock),
         );
     }
 
@@ -144,7 +144,7 @@ class BrandFacadeTest extends Unit
             ->willReturn(true);
 
         $this->assertTrue(
-            $this->brandFacade->deleteBrand($this->brandTransferMock)
+            $this->brandFacade->deleteBrand($this->brandTransferMock),
         );
     }
 
@@ -164,7 +164,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandTransfer::class,
-            $this->brandFacade->findBrandById($this->brandTransferMock)
+            $this->brandFacade->findBrandById($this->brandTransferMock),
         );
     }
 
@@ -201,7 +201,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandTransfer::class,
-            $this->brandFacade->findBrandByName($this->brandTransferMock)
+            $this->brandFacade->findBrandByName($this->brandTransferMock),
         );
     }
 
@@ -255,7 +255,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
-            $this->brandFacade->getBrandCollection($this->brandCollectionTransferMock)
+            $this->brandFacade->getBrandCollection($this->brandCollectionTransferMock),
         );
     }
 
@@ -274,7 +274,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
-            $this->brandFacade->getActiveBrands()
+            $this->brandFacade->getActiveBrands(),
         );
     }
 
@@ -294,7 +294,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandResponseTransfer::class,
-            $this->brandFacade->createBrand($this->brandTransferMock)
+            $this->brandFacade->createBrand($this->brandTransferMock),
         );
     }
 
@@ -314,7 +314,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandResponseTransfer::class,
-            $this->brandFacade->updateBrand($this->brandTransferMock)
+            $this->brandFacade->updateBrand($this->brandTransferMock),
         );
     }
 
@@ -334,7 +334,7 @@ class BrandFacadeTest extends Unit
 
         $this->assertInstanceOf(
             BrandListTransfer::class,
-            $this->brandFacade->findBrands($this->brandListTransferMock)
+            $this->brandFacade->findBrands($this->brandListTransferMock),
         );
     }
 }

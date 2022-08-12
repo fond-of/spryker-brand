@@ -58,7 +58,7 @@ class BrandStubTest extends Unit
 
         $this->assertInstanceOf(
             BrandCollectionTransfer::class,
-            $this->brandStub->getActiveBrands()
+            $this->brandStub->getActiveBrands(),
         );
     }
 }

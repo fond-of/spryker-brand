@@ -44,7 +44,7 @@ class BrandToZedRequestClientBridgeTest extends Unit
         $this->url = 'url';
 
         $this->brandToZedRequestClientBridge = new BrandToZedRequestClientBridge(
-            $this->zedRequestClientInterfaceMock
+            $this->zedRequestClientInterfaceMock,
         );
     }
 
@@ -62,8 +62,8 @@ class BrandToZedRequestClientBridgeTest extends Unit
             TransferInterface::class,
             $this->brandToZedRequestClientBridge->call(
                 $this->url,
-                $this->transferInterfaceMock
-            )
+                $this->transferInterfaceMock,
+            ),
         );
     }
 }

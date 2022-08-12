@@ -80,7 +80,7 @@ class BrandTest extends Unit
             $this->queryContainerMock,
             $this->brandEntityManagerMock,
             $this->brandConfig,
-            $this->brandExpanderMock
+            $this->brandExpanderMock,
         );
     }
 
