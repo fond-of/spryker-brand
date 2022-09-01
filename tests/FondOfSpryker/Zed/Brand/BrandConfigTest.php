@@ -4,6 +4,9 @@ namespace FondOfSpryker\Zed\Brand;
 
 use Codeception\Test\Unit;
 
+/**
+ * @codeCoverageIgnore
+ */
 class BrandConfigTest extends Unit
 {
     /**
