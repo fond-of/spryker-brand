@@ -5,6 +5,9 @@ namespace FondOfSpryker\Zed\Brand;
 use FondOfSpryker\Shared\Brand\BrandConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
+/**
+ * @codeCoverageIgnore
+ */
 class BrandConfig extends AbstractBundleConfig
 {
     /**
